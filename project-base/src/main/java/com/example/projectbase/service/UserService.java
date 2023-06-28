@@ -16,4 +16,6 @@ public interface UserService {
 
   UserDto getCurrentUser(UserPrincipal principal);
 
+  User register(UserCreateDto user);
+
 }
