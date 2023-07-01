@@ -4,6 +4,7 @@ import com.example.projectbase.base.RestApiV1;
 import com.example.projectbase.base.VsResponseUtil;
 import com.example.projectbase.constant.UrlConstant;
 import com.example.projectbase.domain.dto.pagination.PaginationFullRequestDto;
+import com.example.projectbase.domain.dto.request.RegisterRequestDto;
 import com.example.projectbase.domain.dto.request.UserCreateDto;
 import com.example.projectbase.security.CurrentUser;
 import com.example.projectbase.security.UserPrincipal;
@@ -50,11 +51,6 @@ public class UserController {
     return VsResponseUtil.success(userService.getCustomers(requestDTO));
   }
 
-  @Operation(summary = "API Register")
-  @PostMapping(UrlConstant.Auth.REGISTER)
-  public ResponseEntity<?> register(@Valid @RequestBody UserCreateDto user) {
-    return VsResponseUtil.success(userService.register(user));
-  }
 
 
 }

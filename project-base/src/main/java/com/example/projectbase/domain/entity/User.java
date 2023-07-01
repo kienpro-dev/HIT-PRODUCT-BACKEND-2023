@@ -32,11 +32,7 @@ public class User extends DateAuditing {
 
   @Nationalized
   @Column(nullable = false)
-  private String firstName;
-
-  @Nationalized
-  @Column(nullable = false)
-  private String lastName;
+  private String email;
 
   //Link to table Role
   @ManyToOne

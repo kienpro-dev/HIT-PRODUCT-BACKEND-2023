@@ -6,6 +6,7 @@ import com.example.projectbase.constant.SortByDataConstant;
 import com.example.projectbase.domain.dto.pagination.PaginationFullRequestDto;
 import com.example.projectbase.domain.dto.pagination.PaginationResponseDto;
 import com.example.projectbase.domain.dto.pagination.PagingMeta;
+import com.example.projectbase.domain.dto.request.RegisterRequestDto;
 import com.example.projectbase.domain.dto.request.UserCreateDto;
 import com.example.projectbase.domain.dto.response.UserDto;
 import com.example.projectbase.domain.entity.User;
@@ -67,16 +68,6 @@ public class UserServiceImpl implements UserService {
   public UserDto getCurrentUser(UserPrincipal principal) {
     User user = userRepository.getUser(principal);
     return userMapper.toUserDto(user);
-  }
-
-  @Override
-  public User register(UserCreateDto userCreate) {
-//    User user = userMapper.toUser(userCreate);
-//    user.setPassword(passwordEncoder.encode(userCreate.getPassword()));
-//    user.setRole(roleRepository.findByRoleName(RoleConstant.USER));
-//    return userRepository.save(user);
-
-    return null;
   }
 
 }

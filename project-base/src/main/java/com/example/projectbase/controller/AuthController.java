@@ -4,7 +4,9 @@ import com.example.projectbase.base.RestApiV1;
 import com.example.projectbase.base.VsResponseUtil;
 import com.example.projectbase.constant.UrlConstant;
 import com.example.projectbase.domain.dto.request.LoginRequestDto;
+import com.example.projectbase.domain.dto.request.RegisterRequestDto;
 import com.example.projectbase.service.AuthService;
+import com.example.projectbase.service.UserService;
 import com.example.projectbase.validator.annotation.ValidFileImage;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,12 @@ public class AuthController {
   @PostMapping(UrlConstant.Auth.LOGIN)
   public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDto request) {
     return VsResponseUtil.success(authService.login(request));
+  }
+
+  @Operation(summary = "API Register")
+  @PostMapping(UrlConstant.Auth.REGISTER)
+  public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDto requestDto) {
+    return VsResponseUtil.success(authService.register(requestDto));
   }
 
   @Operation(summary = "API test")

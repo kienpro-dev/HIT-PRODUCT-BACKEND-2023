@@ -2,6 +2,7 @@ package com.example.projectbase.service;
 
 import com.example.projectbase.domain.dto.pagination.PaginationFullRequestDto;
 import com.example.projectbase.domain.dto.pagination.PaginationResponseDto;
+import com.example.projectbase.domain.dto.request.RegisterRequestDto;
 import com.example.projectbase.domain.dto.request.UserCreateDto;
 import com.example.projectbase.domain.dto.request.UserUpdateDto;
 import com.example.projectbase.domain.dto.response.UserDto;
@@ -15,7 +16,4 @@ public interface UserService {
   PaginationResponseDto<UserDto> getCustomers(PaginationFullRequestDto request);
 
   UserDto getCurrentUser(UserPrincipal principal);
-
-  User register(UserCreateDto user);
-
 }
