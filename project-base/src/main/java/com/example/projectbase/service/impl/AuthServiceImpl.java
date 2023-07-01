@@ -23,9 +23,11 @@ import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Service
 @RequiredArgsConstructor
@@ -66,8 +68,10 @@ public class AuthServiceImpl implements AuthService {
   }
 
   @Override
-  public CommonResponseDto logout(HttpServletRequest request) {
-    return null;
+  public CommonResponseDto logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+    SecurityContextLogoutHandler logout = new SecurityContextLogoutHandler();
+    logout.logout(request, response, authentication);
+    return new CommonResponseDto(true, "Logout successfully");
   }
 
   @Override

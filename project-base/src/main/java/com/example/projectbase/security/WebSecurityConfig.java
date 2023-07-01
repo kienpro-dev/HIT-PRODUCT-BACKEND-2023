@@ -52,12 +52,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/api/v1/auth/**").permitAll()
         .anyRequest().authenticated()
         .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    http.logout()
-            .logoutUrl("/logout")
-            .logoutSuccessUrl("/login?logout")
-            .invalidateHttpSession(true)
-            .deleteCookies("JSESSIONID")
-            .permitAll();
     http.exceptionHandling().authenticationEntryPoint(new JwtAuthenticationEntryPoint());
     http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
   }
