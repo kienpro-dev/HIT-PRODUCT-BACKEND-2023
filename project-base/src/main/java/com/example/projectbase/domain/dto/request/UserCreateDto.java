@@ -25,10 +25,8 @@ public class UserCreateDto {
   @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=\\S+$).{8,}$", message = ErrorMessage.INVALID_FORMAT_PASSWORD)
   private String password;
 
-  @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
-  private String firstName;
-
-  @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
-  private String lastName;
+  @NotNull(message = ErrorMessage.INVALID_SOME_THING_FIELD_IS_REQUIRED)
+  @Pattern(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", message = ErrorMessage.INVALID_FORMAT_EMAIL)
+  private String email;
 
 }

@@ -12,14 +12,20 @@ public class ErrorMessage {
   public static final String INVALID_FORMAT_SOME_THING_FIELD = "invalid.general.format";
   public static final String INVALID_SOME_THING_FIELD_IS_REQUIRED = "invalid.general.required";
   public static final String NOT_BLANK_FIELD = "invalid.general.not-blank";
+  public static final String INVALID_FORMAT_USERNAME = "invalid.username-format";
   public static final String INVALID_FORMAT_PASSWORD = "invalid.password-format";
+  public static final String INVALID_FORMAT_EMAIL = "invalid.email-format";
   public static final String INVALID_DATE = "invalid.date-format";
   public static final String INVALID_DATE_FEATURE = "invalid.date-future";
   public static final String INVALID_DATETIME = "invalid.datetime-format";
+  public static final String INVALID_REPEAT_PASSWORD = "invalid.password-repeat";
 
   public static class Auth {
     public static final String ERR_INCORRECT_USERNAME = "exception.auth.incorrect.username";
     public static final String ERR_INCORRECT_PASSWORD = "exception.auth.incorrect.password";
+    public static final String ERR_DUPLICATE_USERNAME = "exception.auth.duplicate.username";
+    public static final String ERR_DUPLICATE_EMAIL = "exception.auth.duplicate.email";
+    public static final String ERR_DUPLICATE_USERNAME_EMAIL = "exception.auth.duplicate.username.email";
     public static final String ERR_ACCOUNT_NOT_ENABLED = "exception.auth.account.not.enabled";
     public static final String ERR_ACCOUNT_LOCKED = "exception.auth.account.locked";
     public static final String INVALID_REFRESH_TOKEN = "exception.auth.invalid.refresh.token";
@@ -28,6 +34,7 @@ public class ErrorMessage {
 
   public static class User {
     public static final String ERR_NOT_FOUND_USERNAME = "exception.user.not.found.username";
+    public static final String ERR_NOT_FOUND_EMAIL = "exception.user.not.found.email";
     public static final String ERR_NOT_FOUND_ID = "exception.user.not.found.id";
   }
 

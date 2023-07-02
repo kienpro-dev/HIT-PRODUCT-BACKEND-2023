@@ -40,7 +40,7 @@ public class ProjectBaseApplication {
     log.info("   Application         : " + appName);
     log.info("   Url swagger-ui      : http://localhost:" + port + "/swagger-ui.html");
     log.info("-------------------------START SUCCESS " + appName
-        + " Application------------------------------");
+        + " Application----------------------");
   }
 
   @Bean
@@ -55,7 +55,8 @@ public class ProjectBaseApplication {
       if (userRepository.count() == 0) {
         User admin = User.builder().username(userInfo.getUsername())
             .password(passwordEncoder.encode(userInfo.getPassword()))
-            .firstName(userInfo.getFirstName()).lastName(userInfo.getLastName())
+                .email(userInfo.getEmail())
+                .customer(null)
             .role(roleRepository.findByRoleName(RoleConstant.ADMIN)).build();
         userRepository.save(admin);
       }
