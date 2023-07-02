@@ -30,13 +30,16 @@ public class User extends DateAuditing {
   @JsonIgnore
   private String password;
 
-  @Nationalized
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   private String email;
 
   //Link to table Role
   @ManyToOne
   @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "FK_USER_ROLE"))
   private Role role;
+
+  @OneToOne
+  @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "FK_USER_CUSTOMER"), referencedColumnName = "id")
+  private Customer customer;
 
 }

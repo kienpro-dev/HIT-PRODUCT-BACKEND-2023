@@ -2,12 +2,14 @@ package com.example.projectbase.service.impl;
 
 import com.example.projectbase.constant.ErrorMessage;
 import com.example.projectbase.constant.RoleConstant;
+import com.example.projectbase.domain.dto.CustomerDto;
 import com.example.projectbase.domain.dto.request.LoginRequestDto;
 import com.example.projectbase.domain.dto.request.RegisterRequestDto;
 import com.example.projectbase.domain.dto.request.TokenRefreshRequestDto;
 import com.example.projectbase.domain.dto.response.CommonResponseDto;
 import com.example.projectbase.domain.dto.response.LoginResponseDto;
 import com.example.projectbase.domain.dto.response.TokenRefreshResponseDto;
+import com.example.projectbase.domain.entity.Customer;
 import com.example.projectbase.domain.entity.User;
 import com.example.projectbase.domain.mapper.UserMapper;
 import com.example.projectbase.exception.DataIntegrityViolationException;
@@ -18,6 +20,7 @@ import com.example.projectbase.repository.UserRepository;
 import com.example.projectbase.security.UserPrincipal;
 import com.example.projectbase.security.jwt.JwtTokenProvider;
 import com.example.projectbase.service.AuthService;
+import com.example.projectbase.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
@@ -44,6 +47,8 @@ public class AuthServiceImpl implements AuthService {
   private final UserMapper userMapper;
 
   private final PasswordEncoder passwordEncoder;
+
+  private final CustomerService customerService;
 
   @Override
   public LoginResponseDto login(LoginRequestDto request) {
@@ -92,6 +97,7 @@ public class AuthServiceImpl implements AuthService {
         User user = userMapper.toUser(requestDto);
         user.setPassword(passwordEncoder.encode(requestDto.getPassword()));
         user.setRole(roleRepository.findByRoleName(RoleConstant.USER));
+        user.setCustomer(customerService.createCustomer(new CustomerDto(user.getUsername(), null, null, null)));
         return userRepository.save(user);
       }
     }
