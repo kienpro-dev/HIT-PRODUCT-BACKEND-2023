@@ -3,8 +3,10 @@ package com.example.projectbase.controller;
 import com.example.projectbase.base.RestApiV1;
 import com.example.projectbase.base.VsResponseUtil;
 import com.example.projectbase.constant.UrlConstant;
+import com.example.projectbase.domain.dto.request.ForgetPasswordRequestDto;
 import com.example.projectbase.domain.dto.request.LoginRequestDto;
 import com.example.projectbase.domain.dto.request.RegisterRequestDto;
+import com.example.projectbase.domain.entity.User;
 import com.example.projectbase.service.AuthService;
 import com.example.projectbase.service.UserService;
 import com.example.projectbase.validator.annotation.ValidFileImage;
@@ -12,6 +14,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,4 +49,9 @@ public class AuthController {
     return VsResponseUtil.success(authService.logout(request, response, authentication));
   }
 
+  @Operation(summary = "API Forget Password")
+  @PostMapping(UrlConstant.Auth.FORGET_PASSWORD)
+  public ResponseEntity<?> forgetPassword(@Valid @RequestBody ForgetPasswordRequestDto requestDto) {
+    return VsResponseUtil.success(authService.forgetPassword(requestDto));
+  }
 }
