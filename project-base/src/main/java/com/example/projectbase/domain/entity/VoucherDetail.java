@@ -1,0 +1,30 @@
+package com.example.projectbase.domain.entity;
+
+import lombok.*;
+
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class VoucherDetail implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "voucher_detai_id",insertable = false, updatable = false, nullable = false)
+    private int id;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "voucher_id", foreignKey = @ForeignKey(name = "FK_VOUCHER_CUSTOMER1"))
+    private Voucher voucher;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "FK_VOUCHER_CUSTOMER2"))
+    private Customer customer;
+
+    @Column(nullable = false)
+    private String status;
+}

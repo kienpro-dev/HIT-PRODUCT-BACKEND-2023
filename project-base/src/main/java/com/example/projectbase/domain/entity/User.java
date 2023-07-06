@@ -35,7 +35,7 @@ public class User extends DateAuditing {
 
   //Link to table Role
   @ManyToOne
-  @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "FK_USER_ROLE"))
+  @JoinColumn(name = "role_id")
   private Role role;
 
   @OneToOne
