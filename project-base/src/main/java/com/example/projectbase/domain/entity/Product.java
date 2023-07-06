@@ -46,6 +46,12 @@ public class Product extends DateAuditing {
     private List<CartDetail> cartDetail=new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL,mappedBy = "products")
+    @JsonIgnore
     private List<Category> categories;
+
+    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "products")
+    @JsonIgnore
+    private List<Shop>shops;
+
 
 }
