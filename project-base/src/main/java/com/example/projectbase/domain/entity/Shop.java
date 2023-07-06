@@ -1,6 +1,7 @@
 package com.example.projectbase.domain.entity;
 
 import com.example.projectbase.domain.entity.common.DateAuditing;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -38,6 +39,14 @@ public class Shop extends DateAuditing {
 
 
     @ManyToMany(cascade = CascadeType.ALL,mappedBy = "shops")
+    @JsonIgnore
     private List<Category> categories;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "shop_product",
+            joinColumns = @JoinColumn(name = "shop_id",foreignKey = @ForeignKey(name = "FK_SHOP_PRODUCT1")),
+            inverseJoinColumns = @JoinColumn(name = "product_id",foreignKey = @ForeignKey(name = "FK_SHOP_PRODUCT2")))
+    @JsonIgnore
+    private List<Product> products;
 
 }
