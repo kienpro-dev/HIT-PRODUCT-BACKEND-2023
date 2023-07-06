@@ -30,8 +30,7 @@ public class SendMailUtil {
    */
   public void sendEmailWithHTML(DataMailDto mail, String template) throws Exception {
     MimeMessage message = mailSender.createMimeMessage();
-    MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
-        StandardCharsets.UTF_8.name());
+    MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
     helper.setTo(mail.getTo());
     helper.setSubject(mail.getSubject());
     Context context = new Context();

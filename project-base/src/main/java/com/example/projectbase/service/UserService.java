@@ -16,4 +16,5 @@ public interface UserService {
   PaginationResponseDto<UserDto> getCustomers(PaginationFullRequestDto request);
 
   UserDto getCurrentUser(UserPrincipal principal);
+
 }
