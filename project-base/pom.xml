@@ -155,7 +155,7 @@
                         </path>
                         <path>
                             <groupId>org.mapstruct</groupId>
-                            <artifactId>mapstruct-processor</artifactId>
+                            <artifa ctId>mapstruct-processor</artifactId>
                             <version>${mapstruct.version}</version>
                         </path>
                     </annotationProcessorPaths>

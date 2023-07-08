@@ -1,30 +1,43 @@
 package com.example.projectbase.domain.dto;
 
+
 import com.example.projectbase.constant.ErrorMessage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
-@AllArgsConstructor
-@NoArgsConstructor
+import java.sql.Time;
+import java.util.Date;
+
+
 @Getter
 @Setter
-public class CustomerDto {
+@AllArgsConstructor
+@NoArgsConstructor
+public class VoucherDto {
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
-    private String fullName;
+    private String name;
 
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
-    private String address;
+    @Max(value = 100)
+    @Min(value = 0)
+    private String discount;
 
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
-    @Pattern(regexp = "^(?!0000)(?!.*-00)(?!.*00-)[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[01])$")
-    private String dob;
+    private Date timeStart;
 
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
-    @Pattern(regexp = "^(?:\\+84|0)(?:1[2689]|9[0-9]|3[2-9]|5[6-9]|7[0-9])(?:\\d{7}|\\d{8})$",message = ErrorMessage.INVALID_FORMAT_PHONE)
-    private String phoneNumber;
+    private Date timeEnd;
+
+    @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
+    @Min(value = 0)
+    private int quantity;
+
 }

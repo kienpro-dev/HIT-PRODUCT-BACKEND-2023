@@ -1,5 +1,6 @@
 package com.example.projectbase.domain.entity;
 
+import com.example.projectbase.domain.entity.common.DateAuditing;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -14,7 +15,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "roles")
-public class Role {
+public class Role extends DateAuditing {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
