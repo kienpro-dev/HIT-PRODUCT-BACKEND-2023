@@ -37,7 +37,5 @@ public class Voucher extends DateAuditing {
     @OneToMany(mappedBy = "voucher", cascade = CascadeType.ALL)
     List<VoucherDetail> voucherDetails = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id",foreignKey = @ForeignKey(name = "FK_CUSTOMER_VOUNCHER"))
-    private Customer customer;
+
 }

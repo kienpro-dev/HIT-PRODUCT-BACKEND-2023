@@ -46,6 +46,6 @@ public class Customer extends DateAuditing {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<Voucher> voucher = new ArrayList<>();
+    private List<VoucherDetail> voucherDetails = new ArrayList<>();
 
 }
