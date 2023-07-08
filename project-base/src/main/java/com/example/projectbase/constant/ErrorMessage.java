@@ -15,9 +15,11 @@ public class ErrorMessage {
   public static final String INVALID_FORMAT_USERNAME = "invalid.username-format";
   public static final String INVALID_FORMAT_PASSWORD = "invalid.password-format";
   public static final String INVALID_FORMAT_EMAIL = "invalid.email-format";
+  public static final String INVALID_FORMAT_PHONE = "invalid.phone-format";
   public static final String INVALID_DATE = "invalid.date-format";
   public static final String INVALID_DATE_FEATURE = "invalid.date-future";
   public static final String INVALID_DATETIME = "invalid.datetime-format";
+  public static final String INVALID_TIME="invalid.time-format";
   public static final String INVALID_REPEAT_PASSWORD = "invalid.password-repeat";
 
   public static class Auth {

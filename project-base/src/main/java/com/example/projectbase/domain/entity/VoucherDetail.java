@@ -25,6 +25,9 @@ public class VoucherDetail implements Serializable {
     @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "FK_VOUCHER_CUSTOMER2"))
     private Customer customer;
 
+   @OneToOne(mappedBy = "voucherDetail")
+   private Bill bill;
+
     @Column(nullable = false)
     private String status;
 }

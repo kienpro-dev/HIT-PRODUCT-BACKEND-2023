@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -32,10 +33,10 @@ public class Shop extends DateAuditing {
     private String hotline;
 
     @Column(nullable = false)
-    private Date timeOpen;
+    private Time timeOpen;
 
     @Column(nullable = false)
-    private Date timeClose;
+    private Time timeClose;
 
 
     @ManyToMany(cascade = CascadeType.ALL,mappedBy = "shops")
