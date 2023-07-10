@@ -27,7 +27,7 @@ public class BillDto {
     private String phoneNumber;
 
 
-    private Date timeShip;
+    private String timeShip;
 
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     private String address;
