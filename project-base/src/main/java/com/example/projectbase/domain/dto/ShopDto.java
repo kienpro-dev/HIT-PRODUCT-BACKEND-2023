@@ -30,10 +30,10 @@ public class ShopDto {
 
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     @Pattern(regexp = "^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$",message = ErrorMessage.INVALID_TIME)
-    private Time timeOpen;
+    private String timeOpen;
 
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     @Pattern(regexp = "^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$",message = ErrorMessage.INVALID_TIME)
-    private Time timeClose;
+    private String timeClose;
 
 }

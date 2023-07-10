@@ -13,7 +13,7 @@ public interface UserService {
 
   UserDto getUserById(String userId);
 
-  PaginationResponseDto<UserDto> getCustomers(PaginationFullRequestDto request);
+  PaginationResponseDto<UserDto> getUsers(PaginationFullRequestDto request);
 
   UserDto getCurrentUser(UserPrincipal principal);
 

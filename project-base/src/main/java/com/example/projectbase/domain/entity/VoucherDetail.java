@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class VoucherDetail implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "voucher_detai_id",insertable = false, updatable = false, nullable = false)
+    @Column(name = "voucher_detail_id",insertable = false, updatable = false, nullable = false)
     private int id;
 
     @ManyToOne(cascade = CascadeType.ALL)

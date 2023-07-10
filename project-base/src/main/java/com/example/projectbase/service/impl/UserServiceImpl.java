@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public PaginationResponseDto<UserDto> getCustomers(PaginationFullRequestDto request) {
+  public PaginationResponseDto<UserDto> getUsers(PaginationFullRequestDto request) {
 
     Pageable pageable = PaginationUtil.buildPageable(request, SortByDataConstant.USER);
 
