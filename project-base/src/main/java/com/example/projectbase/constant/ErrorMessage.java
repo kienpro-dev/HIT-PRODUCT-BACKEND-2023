@@ -45,7 +45,6 @@ public class ErrorMessage {
     public static final String ERR_NOT_FOUND_ID = "exception.customer.not.found.id";
   }
 
-<<<<<<< HEAD
   public static class Product {
     public static final String ERR_NOT_FOUND_ID = "exception.product.not.found.id";
   }
@@ -57,7 +56,4 @@ public class ErrorMessage {
   public static class Shop {
     public static final String ERR_NOT_FOUND_ID = "exception.shop.not.found.id";
   }
-
-=======
->>>>>>> main
 }
