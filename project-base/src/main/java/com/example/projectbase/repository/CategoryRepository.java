@@ -2,7 +2,6 @@ package com.example.projectbase.repository;
 
 import com.example.projectbase.domain.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
-<<<<<<< HEAD
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -19,10 +18,4 @@ public interface CategoryRepository extends JpaRepository<Category,Integer> {
     @Modifying
     @Query("UPDATE Category c SET c.name = ?1 where c.id = ?2")
     void updateCategory(String name, int id);
-=======
-import org.springframework.stereotype.Repository;
-
-@Repository
-public interface CategoryRepository extends JpaRepository<Category,Integer> {
->>>>>>> main
 }
