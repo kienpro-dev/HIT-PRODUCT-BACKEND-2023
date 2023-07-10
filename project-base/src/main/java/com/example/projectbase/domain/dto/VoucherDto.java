@@ -31,10 +31,10 @@ public class VoucherDto {
     private String discount;
 
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
-    private Date timeStart;
+    private String timeStart;
 
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
-    private Date timeEnd;
+    private String timeEnd;
 
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     @Min(value = 0)

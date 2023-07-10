@@ -49,7 +49,7 @@ public class Bill extends DateAuditing {
     private Customer customer;
 
     @OneToOne
-    @JoinColumn(name = "voucher_detail_id",foreignKey = @ForeignKey(name = "FK_VOUCHER_DETAIL_BILL"),referencedColumnName = "voucher_detai_id")
+    @JoinColumn(name = "voucher_detail_id",foreignKey = @ForeignKey(name = "FK_VOUCHER_DETAIL_BILL"),referencedColumnName = "voucher_detail_id")
     private VoucherDetail voucherDetail;
 }
 

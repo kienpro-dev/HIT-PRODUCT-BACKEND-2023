@@ -45,10 +45,10 @@ public class UserController {
   }
 
   @Tag(name = "user-controller-admin")
-  @Operation(summary = "API get all customer")
+  @Operation(summary = "API get all user")
   @GetMapping(UrlConstant.User.GET_USERS)
   public ResponseEntity<?> getCustomers(@Valid @ParameterObject PaginationFullRequestDto requestDTO) {
-    return VsResponseUtil.success(userService.getCustomers(requestDTO));
+    return VsResponseUtil.success(userService.getUsers(requestDTO));
   }
 
 
