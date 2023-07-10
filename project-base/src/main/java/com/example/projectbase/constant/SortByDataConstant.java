@@ -31,6 +31,7 @@ public enum SortByDataConstant implements SortByInterface {
   PRODUCT {
     @Override
     public String getSortBy(String sortBy) {
+<<<<<<< HEAD
       if ("name".equals(sortBy)) {
         return "name";
       }
@@ -50,6 +51,10 @@ public enum SortByDataConstant implements SortByInterface {
     public String getSortBy(String sortBy) {
       return "name";
     }
+=======
+      return "price";
+    }
+>>>>>>> main
   }
 
 

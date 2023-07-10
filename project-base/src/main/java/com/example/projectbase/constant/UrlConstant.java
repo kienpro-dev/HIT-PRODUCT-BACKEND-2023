@@ -36,6 +36,7 @@ public class UrlConstant {
     }
   }
 
+<<<<<<< HEAD
   public static class Product {
     private static final String PRE_FIX = "/product";
 
@@ -69,4 +70,6 @@ public class UrlConstant {
     }
   }
 
+=======
+>>>>>>> main
 }
