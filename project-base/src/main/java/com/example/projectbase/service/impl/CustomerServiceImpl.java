@@ -43,7 +43,11 @@ public class CustomerServiceImpl implements CustomerService {
         Optional<Customer> customer = customerRepository.findById(id);
 
         if(customer.isEmpty()) {
+<<<<<<< HEAD
+            throw new NotFoundException(ErrorMessage.Customer.ERR_NOT_FOUND_ID, new String[]{String.valueOf(id)});
+=======
             throw new NotFoundException(ErrorMessage.Customer.ERR_NOT_FOUND_ID);
+>>>>>>> main
         }
 
         try {
@@ -57,12 +61,20 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer getCustomerById(int id) {
+<<<<<<< HEAD
+        return customerRepository.findById(id).orElseThrow(() -> new NotFoundException(ErrorMessage.Customer.ERR_NOT_FOUND_ID, new String[]{String.valueOf(id)}));
+=======
         return customerRepository.findById(id).orElseThrow(() -> new NotFoundException(ErrorMessage.Customer.ERR_NOT_FOUND_ID));
+>>>>>>> main
     }
 
     @Override
     public Object deleteCustomerById(int id) {
+<<<<<<< HEAD
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException(ErrorMessage.Customer.ERR_NOT_FOUND_ID, new String[]{String.valueOf(id)}));
+=======
         Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException(ErrorMessage.Customer.ERR_NOT_FOUND_ID));
+>>>>>>> main
         customerRepository.delete(customer);
         return null;
     }
