@@ -17,6 +17,6 @@ public interface ShopRepository extends JpaRepository<Shop,Integer> {
 
     @Transactional
     @Modifying
-    @Query("UPDATE Shop s SET s.name = ?1, s.address = ?2, s.hotline = ?3, s.timeOpen = ?4, s.timeClose = ?5 where s.id = ?6")
+    @Query("UPDATE Shop s SET s.name = ?1, s.address = ?2, s.hotline = ?3, s.timeOpen = ?4, s.timeClose = ?5, s.lastModifiedDate = CURRENT_TIMESTAMP where s.id = ?6")
     void updateShop(String name, String address, String hotline, Time timeOpen, Time timeClose, int id);
 }
