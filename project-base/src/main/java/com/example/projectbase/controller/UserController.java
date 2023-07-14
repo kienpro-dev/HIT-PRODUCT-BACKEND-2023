@@ -51,6 +51,12 @@ public class UserController {
     return VsResponseUtil.success(userService.getUsers(requestDTO));
   }
 
+  @Operation(summary = "API find product info")
+  @GetMapping(UrlConstant.User.FIND_PRODUCT_INFO)
+  public ResponseEntity<?> getInformation(@Valid @ParameterObject PaginationFullRequestDto requestDTO) {
+    return VsResponseUtil.success(userService.getInfo(requestDTO));
+  }
+
 
 
 }
