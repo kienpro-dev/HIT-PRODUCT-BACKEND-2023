@@ -34,7 +34,7 @@ public interface UserRepository extends JpaRepository<User, String> {
   }
 
    //   @Query(value = "select * from products as p inner join shop_product as sp on p.product_id = sp.sp_product_id inner join shops as s on sp.sp_shop_id = s.shop_id inner join category_product as cp on cp.cp_product_id = p.product_id inner join categories as c on c.category_id = cp.cp_category_id ", nativeQuery = true)
-    @Query("SELECT new com.example.projectbase.domain.dto.response.FindProductResponseDto(p.name, p.image, p.price, p.stock, c.name, s.name, s.address, s.timeOpen, s.timeClose, s.hotline) FROM Product p INNER JOIN p.shops s INNER JOIN p.categories c WHERE p.name LIKE %:keyword%")
+    @Query("SELECT new com.example.projectbase.domain.dto.response.FindProductResponseDto(p.name, p.image, p.price, p.stock, c.name, s.name, s.address, s.timeOpen, s.timeClose, s.hotline) FROM Product p INNER JOIN p.shops s INNER JOIN p.categories c WHERE (p.name LIKE %:keyword%) OR (s.name LIKE %:keyword%) OR (c.name LIKE %:keyword%)")
     Page<FindProductResponseDto> find(String keyword, Pageable pageable);
 
 }
