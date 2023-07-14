@@ -8,6 +8,7 @@ import com.example.projectbase.domain.dto.pagination.PaginationResponseDto;
 import com.example.projectbase.domain.dto.pagination.PagingMeta;
 import com.example.projectbase.domain.dto.request.RegisterRequestDto;
 import com.example.projectbase.domain.dto.request.UserCreateDto;
+import com.example.projectbase.domain.dto.response.FindProductResponseDto;
 import com.example.projectbase.domain.dto.response.UserDto;
 import com.example.projectbase.domain.entity.User;
 import com.example.projectbase.domain.mapper.UserMapper;
@@ -69,5 +70,19 @@ public class UserServiceImpl implements UserService {
     User user = userRepository.getUser(principal);
     return userMapper.toUserDto(user);
   }
+
+  @Override
+    public PaginationResponseDto<FindProductResponseDto> getInfo(PaginationFullRequestDto request) {
+        Pageable pageable = PaginationUtil.buildPageable(request, SortByDataConstant.PRODUCT);
+
+        Page<FindProductResponseDto> page = userRepository.find(request.getKeyword(), pageable);
+
+        PaginationResponseDto<FindProductResponseDto> responseDto = new PaginationResponseDto<>();
+        responseDto.setItems(page.getContent());
+
+        PagingMeta pagingMeta = new PagingMeta(page.getTotalElements(), page.getTotalPages(), page.getNumber(), page.getSize(), request.getSortBy(), request.getIsAscending().toString());
+        responseDto.setMeta(pagingMeta);
+        return responseDto;
+    }
 
 }

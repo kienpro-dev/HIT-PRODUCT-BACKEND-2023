@@ -21,7 +21,6 @@ public class Voucher extends DateAuditing {
     private int id;
 
     private String name;
-
     @Column(nullable = false)
     private String discount;
 
