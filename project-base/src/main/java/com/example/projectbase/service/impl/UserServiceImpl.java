@@ -85,4 +85,9 @@ public class UserServiceImpl implements UserService {
         return responseDto;
     }
 
+  @Override
+  public FindProductResponseDto getProductDetail(int productId) {
+    return userRepository.findProductDetail(productId).orElseThrow(() -> new NotFoundException(ErrorMessage.Product.ERR_NOT_FOUND_ID, new String[]{String.valueOf(productId)}));
+  }
+
 }

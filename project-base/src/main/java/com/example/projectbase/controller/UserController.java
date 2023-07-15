@@ -57,6 +57,10 @@ public class UserController {
     return VsResponseUtil.success(userService.getInfo(requestDTO));
   }
 
-
+  @Operation(summary = "API get product detail")
+  @GetMapping(UrlConstant.User.GET_PRODUCT_DETAIL)
+  public ResponseEntity<?> getInformation(@Valid @PathVariable int productId) {
+    return VsResponseUtil.success(userService.getProductDetail(productId));
+  }
 
 }
