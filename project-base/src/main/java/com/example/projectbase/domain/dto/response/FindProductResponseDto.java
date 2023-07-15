@@ -14,6 +14,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FindProductResponseDto {
+    private int productId;
+
     private String productName;
 
     private String productImageUrl;
@@ -22,7 +24,11 @@ public class FindProductResponseDto {
 
     private int productStock;
 
+    private int categoryId;
+
     private String categoryName;
+
+    private int shopId;
 
     private String shopName;
 
@@ -34,12 +40,15 @@ public class FindProductResponseDto {
 
     private String shopHotline;
 
-    public FindProductResponseDto(String productName, String productImageUrl, int productPrice, int productStock, String categoryName, String shopName, String shopAddress, Date shopTimeClose, Date shopTimeOpen, String shopHotline) {
+    public FindProductResponseDto(int productId, String productName, String productImageUrl, int productPrice, int productStock, int categoryId, String categoryName, int shopId, String shopName, String shopAddress, Date shopTimeClose, Date shopTimeOpen, String shopHotline) {
+        this.productId = productId;
         this.productName = productName;
         this.productImageUrl = productImageUrl;
         this.productPrice = productPrice;
         this.productStock = productStock;
+        this.categoryId = categoryId;
         this.categoryName = categoryName;
+        this.shopId = shopId;
         this.shopName = shopName;
         this.shopAddress = shopAddress;
 
