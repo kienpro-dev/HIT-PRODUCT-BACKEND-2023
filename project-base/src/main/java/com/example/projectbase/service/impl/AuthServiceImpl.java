@@ -3,12 +3,14 @@ package com.example.projectbase.service.impl;
 import com.example.projectbase.constant.ErrorMessage;
 import com.example.projectbase.constant.RoleConstant;
 import com.example.projectbase.constant.SuccessMessage;
+import com.example.projectbase.domain.dto.CartDto;
 import com.example.projectbase.domain.dto.CustomerDto;
 import com.example.projectbase.domain.dto.common.DataMailDto;
 import com.example.projectbase.domain.dto.request.*;
 import com.example.projectbase.domain.dto.response.CommonResponseDto;
 import com.example.projectbase.domain.dto.response.LoginResponseDto;
 import com.example.projectbase.domain.dto.response.TokenRefreshResponseDto;
+import com.example.projectbase.domain.entity.Cart;
 import com.example.projectbase.domain.entity.Customer;
 import com.example.projectbase.domain.entity.User;
 import com.example.projectbase.domain.mapper.UserMapper;
@@ -20,6 +22,7 @@ import com.example.projectbase.repository.UserRepository;
 import com.example.projectbase.security.UserPrincipal;
 import com.example.projectbase.security.jwt.JwtTokenProvider;
 import com.example.projectbase.service.AuthService;
+import com.example.projectbase.service.CartService;
 import com.example.projectbase.service.CustomerService;
 import com.example.projectbase.util.RandomPasswordUtil;
 import com.example.projectbase.util.SendMailUtil;
@@ -49,6 +52,8 @@ public class AuthServiceImpl implements AuthService {
   private final UserRepository userRepository;
 
   private final RoleRepository roleRepository;
+
+  private final CartService cartService;
 
   private final UserMapper userMapper;
 
@@ -106,6 +111,7 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(passwordEncoder.encode(requestDto.getPassword()));
         user.setRole(roleRepository.findByRoleName(RoleConstant.USER));
         user.setCustomer(customerService.createCustomer(new CustomerDto(user.getUsername(), null, null, null)));
+        cartService.createCartForCustomer(new CartDto(user.getCustomer().getId()));
         return userRepository.save(user);
       }
     }
