@@ -19,4 +19,6 @@ public interface UserService {
   UserDto getCurrentUser(UserPrincipal principal);
 
   PaginationResponseDto<FindProductResponseDto> getInfo(PaginationFullRequestDto request);
+
+  FindProductResponseDto getProductDetail(int productId);
 }
