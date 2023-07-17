@@ -70,4 +70,10 @@ public class UrlConstant {
     private Shop() {
     }
   }
+
+  public static class Cart {
+    private static final String PRE_FIX = "/cart";
+
+    public static final String ADD_PRODUCT_TO_CART = PRE_FIX + "/{cartId}" + "/products";
+  }
 }

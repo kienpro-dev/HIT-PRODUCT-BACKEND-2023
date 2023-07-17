@@ -16,10 +16,10 @@ import javax.validation.constraints.NotBlank;
 public class CartDetailDto {
 
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
-    private int product_id;
+    private int productId;
 
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
-    private int cart_id;
+    private int cartId;
 
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     @Min(value = 1)
