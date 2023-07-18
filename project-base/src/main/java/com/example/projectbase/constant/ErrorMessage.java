@@ -56,4 +56,8 @@ public class ErrorMessage {
   public static class Shop {
     public static final String ERR_NOT_FOUND_ID = "exception.shop.not.found.id";
   }
+
+  public static class Cart {
+    public static final String ERR_NOT_FOUND_ID = "exception.cart.not.found.id";
+  }
 }
