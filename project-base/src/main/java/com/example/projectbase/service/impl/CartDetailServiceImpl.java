@@ -2,6 +2,7 @@ package com.example.projectbase.service.impl;
 
 import com.example.projectbase.constant.ErrorMessage;
 import com.example.projectbase.domain.dto.CartDetailDto;
+import com.example.projectbase.domain.dto.response.CartResponseDto;
 import com.example.projectbase.domain.entity.Cart;
 import com.example.projectbase.domain.entity.CartDetail;
 import com.example.projectbase.domain.entity.Product;
@@ -14,6 +15,7 @@ import com.example.projectbase.service.CartDetailService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,5 +44,12 @@ public class CartDetailServiceImpl implements CartDetailService {
 
         cartDetailRepository.save(cartDetailMapper.toCartDetail(cartDetailDto));
         return null;
+    }
+
+    @Override
+    public List<CartResponseDto> getCartInfo(int cartId) {
+        Optional<Cart> cart = Optional.ofNullable(cartRepository.findById(cartId).orElseThrow(() -> new NotFoundException(ErrorMessage.Cart.ERR_NOT_FOUND_ID, new String[]{String.valueOf(cartId)})));
+
+        return cartDetailRepository.findCartDetail(cartId);
     }
 }

@@ -8,6 +8,7 @@ import com.example.projectbase.service.CartDetailService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,8 +21,14 @@ public class CartController {
     private final CartDetailService cartDetailService;
 
     @Operation(summary = "API add product to cart")
-    @PostMapping(value = UrlConstant.Cart.ADD_PRODUCT_TO_CART)
+    @PostMapping(UrlConstant.Cart.ADD_PRODUCT_TO_CART)
     public ResponseEntity<?> addProductToCart(@Valid @PathVariable int cartId, @RequestParam int productId, @RequestParam int quality) {
         return VsResponseUtil.success(cartDetailService.addProductToCart(new CartDetailDto(cartId, productId, quality)));
+    }
+
+    @Operation(summary = "API get cart info")
+    @GetMapping(UrlConstant.Cart.GET_CART_INFO)
+    public ResponseEntity<?> getCartInfo(@Valid @PathVariable int cartId) {
+        return VsResponseUtil.success(cartDetailService.getCartInfo(cartId));
     }
 }
