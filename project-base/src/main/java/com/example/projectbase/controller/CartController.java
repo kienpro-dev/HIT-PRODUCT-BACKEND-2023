@@ -23,7 +23,7 @@ public class CartController {
     @Operation(summary = "API add product to cart")
     @PostMapping(UrlConstant.Cart.ADD_PRODUCT_TO_CART)
     public ResponseEntity<?> addProductToCart(@Valid @PathVariable int cartId, @RequestParam int productId, @RequestParam int quality) {
-        return VsResponseUtil.success(cartDetailService.addProductToCart(new CartDetailDto(cartId, productId, quality)));
+        return VsResponseUtil.success(cartDetailService.addProductToCart(new CartDetailDto(productId, cartId, quality)));
     }
 
     @Operation(summary = "API get cart info")
