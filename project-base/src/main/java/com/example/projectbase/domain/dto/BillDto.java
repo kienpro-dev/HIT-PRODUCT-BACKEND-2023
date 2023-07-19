@@ -33,9 +33,9 @@ public class BillDto {
     private String address;
 
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
-    private int customer_id;
+    private int customerId;
 
-    private int voucher_detail_id;
+    private int voucher_detailId;
 
 
 
