@@ -19,7 +19,7 @@ public class CartServiceImpl implements CartService {
     public void createCartForCustomer(CartDto cartDto) {
         Cart cart = cartRepository.save(cartMapper.toCart(cartDto));
 
-        cartRepository.addCartForCustomer(cart.getId(), cartDto.getCustomer_id());
+        cartRepository.addCartForCustomer(cart.getId(), cartDto.getCustomerId());
     }
 
 }

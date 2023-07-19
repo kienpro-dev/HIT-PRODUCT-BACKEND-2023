@@ -14,5 +14,5 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class CartDto {
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
-    private int customer_id;
+    private int customerId;
 }

@@ -14,10 +14,10 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class VoucherDetailDto {
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
-    private int customer_id;
+    private int customerId;
 
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
-    private int voucher_id;
+    private int voucherId;
 
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     private String status;
