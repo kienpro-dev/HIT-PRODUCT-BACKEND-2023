@@ -5,6 +5,7 @@ import com.example.projectbase.base.VsResponseUtil;
 import com.example.projectbase.constant.UrlConstant;
 import com.example.projectbase.domain.dto.ProductDto;
 import com.example.projectbase.domain.dto.pagination.PaginationFullRequestDto;
+import com.example.projectbase.domain.dto.pagination.PaginationSortRequestDto;
 import com.example.projectbase.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -41,5 +42,17 @@ public class ProductController {
     @DeleteMapping(UrlConstant.Product.DELETE_PRODUCT)
     public ResponseEntity<?> deleteProduct(@PathVariable int productId) {
         return VsResponseUtil.success(productService.deleteProductById(productId));
+    }
+
+    @Operation(summary = "API get products by shop")
+    @GetMapping(UrlConstant.Product.GET_PRODUCTS_BY_SHOP)
+    public ResponseEntity<?> getProductByShop(@PathVariable int shopId,@Valid @ParameterObject PaginationSortRequestDto requestDTO) {
+        return VsResponseUtil.success(productService.findProductsByShop(shopId,requestDTO));
+    }
+
+    @Operation(summary = "API get products by category")
+    @GetMapping(UrlConstant.Product.GET_PRODUCTS_BY_CATEGORY)
+    public ResponseEntity<?> getProductByCategory(@PathVariable int categoryId,@Valid @ParameterObject PaginationSortRequestDto requestDTO) {
+        return VsResponseUtil.success(productService.findProductsByCategory(categoryId,requestDTO));
     }
 }

@@ -42,4 +42,5 @@ public class ShopController {
     public ResponseEntity<?> deleteShop(@PathVariable int shopId) {
         return VsResponseUtil.success(shopService.deleteShopById(shopId));
     }
+
 }
