@@ -21,6 +21,6 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, Long> {
 
     @Transactional
     @Modifying
-    @Query("UPDATE CartDetail cp SET cp.quantity = ?1 WHERE cp.cart.id = ?2")
-    void updateCartDetail(int quantity, int cartId);
+    @Query("UPDATE CartDetail cp SET cp.quantity = ?1 WHERE cp.cart.id = ?2 and cp.product.id = ?3")
+    void updateCartDetail(int quantity, int cartId, int productId);
 }

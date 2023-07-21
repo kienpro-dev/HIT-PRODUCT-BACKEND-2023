@@ -3,6 +3,7 @@ package com.example.projectbase.service.impl;
 import com.example.projectbase.constant.ErrorMessage;
 import com.example.projectbase.domain.dto.CartDetailDto;
 import com.example.projectbase.domain.dto.response.CartResponseDto;
+import com.example.projectbase.domain.dto.response.CommonResponseDto;
 import com.example.projectbase.domain.entity.Cart;
 import com.example.projectbase.domain.entity.CartDetail;
 import com.example.projectbase.domain.entity.Product;
@@ -39,10 +40,11 @@ public class CartDetailServiceImpl implements CartDetailService {
 
         if(cartDetail != null) {
             cartDetail.setQuantity(cartDetail.getQuantity() + cartDetailDto.getQuantity());
-            cartDetailRepository.updateCartDetail(cartDetail.getQuantity(), cartDetailDto.getCartId());
+            cartDetailRepository.updateCartDetail(cartDetail.getQuantity(), cartDetailDto.getCartId(), cartDetailDto.getProductId());
+        } else {
+            cartDetailRepository.save(cartDetailMapper.toCartDetail(cartDetailDto));
         }
 
-        cartDetailRepository.save(cartDetailMapper.toCartDetail(cartDetailDto));
         return null;
     }
 
@@ -51,5 +53,15 @@ public class CartDetailServiceImpl implements CartDetailService {
         Optional<Cart> cart = Optional.ofNullable(cartRepository.findById(cartId).orElseThrow(() -> new NotFoundException(ErrorMessage.Cart.ERR_NOT_FOUND_ID, new String[]{String.valueOf(cartId)})));
 
         return cartDetailRepository.findCartDetail(cartId);
+    }
+
+    @Override
+    public CommonResponseDto updateCartInfo(CartDetailDto cartDetailDto) {
+//        Optional<Cart> cart = Optional.ofNullable(cartRepository.findById(cartDetailDto.getCartId()).orElseThrow(() -> new NotFoundException(ErrorMessage.Cart.ERR_NOT_FOUND_ID, new String[]{String.valueOf(cartDetailDto.getCartId())})));
+//
+//        Optional<Product> product = Optional.ofNullable(productRepository.findById(cartDetailDto.getProductId()).orElseThrow(() -> new NotFoundException(ErrorMessage.Product.ERR_NOT_FOUND_ID, new String[]{String.valueOf(cartDetailDto.getProductId())})));
+//
+//        cartDetailRepository.updateCartDetail();
+        return null;
     }
 }
