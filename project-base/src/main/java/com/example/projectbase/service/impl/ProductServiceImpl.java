@@ -103,7 +103,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public PaginationResponseDto<FindProductResponseDto> findProductsByCategory(int id, PaginationSortRequestDto request) {
-        Optional<Category> shop = Optional.ofNullable(categoryRepository.findById(id).orElseThrow(()->new NotFoundException(ErrorMessage.Category.ERR_NOT_FOUND_ID,new String[]{String.valueOf(id)})));
+        Optional<Category> category = Optional.ofNullable(categoryRepository.findById(id).orElseThrow(()->new NotFoundException(ErrorMessage.Category.ERR_NOT_FOUND_ID,new String[]{String.valueOf(id)})));
 
         Pageable pageable = PaginationUtil.buildPageable(request, SortByDataConstant.PRODUCT);
 
