@@ -47,8 +47,8 @@ public class UrlConstant {
         public static final String GET_PRODUCT = PRE_FIX + "/{productId}";
         public static final String UPDATE_PRODUCT = PRE_FIX + "/{productId}";
         public static final String DELETE_PRODUCT = PRE_FIX + "/{productId}";
-        public static final String GET_PRODUCTS_BY_CATEGORY = PRE_FIX + "get_products_by_category" + "/{categoryId}";
-        public static final String GET_PRODUCTS_BY_SHOP = PRE_FIX + "get_products_by_shop" + "/{shopId}";
+        public static final String GET_PRODUCTS_BY_CATEGORY = PRE_FIX + "/get-products-by-category" + "/{categoryId}";
+        public static final String GET_PRODUCTS_BY_SHOP = PRE_FIX + "/get-products-by-shop" + "/{shopId}";
 
         private Product() {
         }
@@ -61,7 +61,7 @@ public class UrlConstant {
         public static final String GET_CATEGORY = PRE_FIX + "/{categoryId}";
         public static final String UPDATE_CATEGORY = PRE_FIX + "/{categoryId}";
         public static final String DELETE_CATEGORY = PRE_FIX + "/{categoryId}";
-        public static final String GET_CATEGORIES_BY_SHOP=PRE_FIX+"get_categories_by_shop"+"/{shopId}";
+        public static final String GET_CATEGORIES_BY_SHOP=PRE_FIX+"/get_categories-by-shop"+"/{shopId}";
         private Category() {
         }
     }
