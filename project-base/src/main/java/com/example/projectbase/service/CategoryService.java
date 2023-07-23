@@ -15,4 +15,7 @@ public interface CategoryService {
     Object deleteCategoryById(int id);
 
     PaginationResponseDto<Category> getCategories(PaginationFullRequestDto request);
+
+    PaginationResponseDto<Category> getCategoriesByShop(int shopId,PaginationFullRequestDto request);
+
 }

@@ -1,6 +1,8 @@
 package com.example.projectbase.repository;
 
 import com.example.projectbase.domain.entity.Category;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +20,7 @@ public interface CategoryRepository extends JpaRepository<Category,Integer> {
     @Modifying
     @Query("UPDATE Category c SET c.name = ?1, c.lastModifiedDate = CURRENT_TIMESTAMP where c.id = ?2")
     void updateCategory(String name, int id);
+
+    @Query("SELECT c FROM Category c INNER JOIN c.shops s WHERE s.id=?1 ")
+    Page<Category> findCategoryByShop(int id, Pageable pageable);
 }
