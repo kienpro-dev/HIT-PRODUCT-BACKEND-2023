@@ -12,4 +12,6 @@ public interface CartDetailService {
     List<CartResponseDto> getCartInfo(int cartId);
 
     CommonResponseDto updateCartInfo(CartDetailDto cartDetailDto);
+
+    CommonResponseDto deleteCartInfo(int cartId);
 }

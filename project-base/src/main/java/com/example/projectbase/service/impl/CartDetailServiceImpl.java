@@ -73,6 +73,12 @@ public class CartDetailServiceImpl implements CartDetailService {
         return new CommonResponseDto(true, SuccessMessage.ADD_PRODUCT_TO_CART);
     }
 
+    @Override
+    public CommonResponseDto deleteCartInfo(int cartId) {
+        cartDetailRepository.deleteAllByCartId(cartId);
+        return new CommonResponseDto(true, SuccessMessage.DELETE_PRODUCT_TO_CART);
+    }
+
     private CartDetail getCartDetail(int cartId, int productId) {
         Optional<Cart> cart = Optional.ofNullable(cartRepository.findById(cartId).orElseThrow(() -> new NotFoundException(ErrorMessage.Cart.ERR_NOT_FOUND_ID, new String[]{String.valueOf(cartId)})));
 

@@ -34,4 +34,10 @@ public class CartController {
     public ResponseEntity<?> updateCartInfo(@Valid @PathVariable int cartId, @PathVariable int productId, @RequestParam int quantity) {
         return VsResponseUtil.success(cartDetailService.updateCartInfo(new CartDetailDto(productId, cartId, quantity)));
     }
+
+    @Operation(summary = "API delete cart info")
+    @DeleteMapping(UrlConstant.Cart.DELETE_CART_INFO)
+    public ResponseEntity<?> deleteCartInfo(@Valid @PathVariable int cartId) {
+        return VsResponseUtil.success(cartDetailService.deleteCartInfo(cartId));
+    }
 }
