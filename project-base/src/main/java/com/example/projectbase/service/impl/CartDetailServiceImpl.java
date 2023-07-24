@@ -34,11 +34,7 @@ public class CartDetailServiceImpl implements CartDetailService {
 
     @Override
     public Object addProductToCart(CartDetailDto cartDetailDto) {
-        Optional<Cart> cart = Optional.ofNullable(cartRepository.findById(cartDetailDto.getCartId()).orElseThrow(() -> new NotFoundException(ErrorMessage.Cart.ERR_NOT_FOUND_ID, new String[]{String.valueOf(cartDetailDto.getCartId())})));
-
-        Optional<Product> product = Optional.ofNullable(productRepository.findById(cartDetailDto.getProductId()).orElseThrow(() -> new NotFoundException(ErrorMessage.Product.ERR_NOT_FOUND_ID, new String[]{String.valueOf(cartDetailDto.getProductId())})));
-
-        CartDetail cartDetail = cartDetailRepository.findByCartAndProduct(cart.get(), product.get());
+        CartDetail cartDetail = getCartDetail(cartDetailDto.getCartId(), cartDetailDto.getProductId());
 
         if(cartDetail != null) {
             cartDetail.setQuantity(cartDetail.getQuantity() + cartDetailDto.getQuantity());
@@ -59,20 +55,29 @@ public class CartDetailServiceImpl implements CartDetailService {
 
     @Override
     public CommonResponseDto updateCartInfo(CartDetailDto cartDetailDto) {
-        Optional<Cart> cart = Optional.ofNullable(cartRepository.findById(cartDetailDto.getCartId()).orElseThrow(() -> new NotFoundException(ErrorMessage.Cart.ERR_NOT_FOUND_ID, new String[]{String.valueOf(cartDetailDto.getCartId())})));
+        CartDetail cartDetail = getCartDetail(cartDetailDto.getCartId(), cartDetailDto.getProductId());
 
-        Optional<Product> product = Optional.ofNullable(productRepository.findById(cartDetailDto.getProductId()).orElseThrow(() -> new NotFoundException(ErrorMessage.Product.ERR_NOT_FOUND_ID, new String[]{String.valueOf(cartDetailDto.getProductId())})));
+        if(cartDetail != null) {
+            if(cartDetailDto.getQuantity() <= 0) {
+                cartDetailRepository.delete(cartDetail);
 
-        CartDetail cartDetail = cartDetailRepository.findByCartAndProduct(cart.get(), product.get());
-
-        if(cartDetailDto.getQuantity() <= 0) {
-            cartDetailRepository.delete(cartDetail);
-
-            return new CommonResponseDto(true, SuccessMessage.DELETE_PRODUCT_TO_CART);
+                return new CommonResponseDto(true, SuccessMessage.DELETE_PRODUCT_TO_CART);
+            }
+        } else {
+            throw new NotFoundException(ErrorMessage.Cart.ERR_NOT_FOUND_ID, new String[]{String.valueOf(cartDetailDto.getCartId())});
         }
+
 
         cartDetailRepository.updateCartDetail(cartDetailDto.getQuantity(), cartDetailDto.getCartId(), cartDetailDto.getProductId());
 
         return new CommonResponseDto(true, SuccessMessage.ADD_PRODUCT_TO_CART);
+    }
+
+    private CartDetail getCartDetail(int cartId, int productId) {
+        Optional<Cart> cart = Optional.ofNullable(cartRepository.findById(cartId).orElseThrow(() -> new NotFoundException(ErrorMessage.Cart.ERR_NOT_FOUND_ID, new String[]{String.valueOf(cartId)})));
+
+        Optional<Product> product = Optional.ofNullable(productRepository.findById(productId).orElseThrow(() -> new NotFoundException(ErrorMessage.Product.ERR_NOT_FOUND_ID, new String[]{String.valueOf(productId)})));
+
+        return cartDetailRepository.findByCartAndProduct(cart.get(), product.get());
     }
 }
