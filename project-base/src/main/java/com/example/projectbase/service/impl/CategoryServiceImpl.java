@@ -77,13 +77,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public PaginationResponseDto<Category> getCategoriesByShop(int shopId, PaginationFullRequestDto request) {
+    public PaginationResponseDto<CategoryResponseDto> getCategoriesByShop(int shopId, PaginationFullRequestDto request) {
         Optional<Shop> shop = Optional.ofNullable(shopRepository.findById(shopId).orElseThrow(() -> new NotFoundException(ErrorMessage.Shop.ERR_NOT_FOUND_ID, new String[]{String.valueOf(shopId)})));
         Pageable pageable = PaginationUtil.buildPageable(request, SortByDataConstant.CATEGORY);
 
-        Page<Category> page = categoryRepository.findCategoryByShop(shopId, pageable);
+        Page<CategoryResponseDto> page = categoryRepository.findCategoryByShop(shopId, pageable);
 
-        PaginationResponseDto<Category> responseDto = new PaginationResponseDto<>();
+        PaginationResponseDto<CategoryResponseDto> responseDto = new PaginationResponseDto<>();
         responseDto.setItems(page.getContent());
 
         PagingMeta pagingMeta = new PagingMeta(page.getTotalElements(), page.getTotalPages(), page.getNumber(), page.getSize(), request.getSortBy(), request.getIsAscending().toString());

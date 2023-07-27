@@ -49,6 +49,7 @@ public class UrlConstant {
         public static final String DELETE_PRODUCT = PRE_FIX + "/{productId}";
         public static final String GET_PRODUCTS_BY_CATEGORY = PRE_FIX + "/get-products-by-category" + "/{categoryId}";
         public static final String GET_PRODUCTS_BY_SHOP = PRE_FIX + "/get-products-by-shop" + "/{shopId}";
+        public static final String GET_PRODUCTS_BY_CATEGORY_SHOP = PRE_FIX + "/get-products-by-category-shop" + "/{shopId}"+"/category"+ "/{categoryId}";
 
         private Product() {
         }

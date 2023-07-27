@@ -2,8 +2,10 @@ package com.example.projectbase.service;
 
 import com.example.projectbase.domain.dto.ProductDto;
 import com.example.projectbase.domain.dto.pagination.PaginationFullRequestDto;
+import com.example.projectbase.domain.dto.pagination.PaginationRequestDto;
 import com.example.projectbase.domain.dto.pagination.PaginationResponseDto;
 import com.example.projectbase.domain.dto.pagination.PaginationSortRequestDto;
+
 import com.example.projectbase.domain.dto.response.FindProductResponseDto;
 import com.example.projectbase.domain.entity.Product;
 
@@ -24,5 +26,5 @@ public interface ProductService {
 
     PaginationResponseDto<FindProductResponseDto> findProductsByCategory(int id, PaginationSortRequestDto request);
 
-    List<FindProductResponseDto> findpr(int id);
+    PaginationResponseDto<FindProductResponseDto> findProductsByCategoryShop(int shopId,int categoryId, PaginationRequestDto request);
 }

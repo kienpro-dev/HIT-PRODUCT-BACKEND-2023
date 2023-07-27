@@ -26,8 +26,9 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
     void updateCategory(String name, int id);
 
 
-    @Query("SELECT c FROM Category c INNER JOIN c.shops s WHERE s.id=?1")
-    Page<Category> findCategoryByShop(int id, Pageable pageable);
+    @Query("SELECT new com.example.projectbase.domain.dto.response.CategoryResponseDto(c.id,c.name,s.id) FROM Category c INNER JOIN c.shops s WHERE s.id=?1")
+    Page<CategoryResponseDto> findCategoryByShop(int id, Pageable pageable);
+
 
 
 }

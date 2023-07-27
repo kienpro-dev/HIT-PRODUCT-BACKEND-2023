@@ -23,4 +23,10 @@ public class PagingMeta {
 
   private String sortType;
 
+  public PagingMeta(long totalElements, int totalPages, int number, int size) {
+    this.totalElements=totalElements;
+    this.totalPages=totalPages;
+    this.pageNum=number;
+    this.pageSize=size;
+  }
 }

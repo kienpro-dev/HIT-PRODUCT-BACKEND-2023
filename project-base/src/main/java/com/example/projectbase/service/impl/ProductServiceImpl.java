@@ -3,10 +3,8 @@ package com.example.projectbase.service.impl;
 import com.example.projectbase.constant.ErrorMessage;
 import com.example.projectbase.constant.SortByDataConstant;
 import com.example.projectbase.domain.dto.ProductDto;
-import com.example.projectbase.domain.dto.pagination.PaginationFullRequestDto;
-import com.example.projectbase.domain.dto.pagination.PaginationResponseDto;
-import com.example.projectbase.domain.dto.pagination.PaginationSortRequestDto;
-import com.example.projectbase.domain.dto.pagination.PagingMeta;
+import com.example.projectbase.domain.dto.pagination.*;
+import com.example.projectbase.domain.dto.response.CategoryResponseDto;
 import com.example.projectbase.domain.dto.response.FindProductResponseDto;
 import com.example.projectbase.domain.entity.Category;
 import com.example.projectbase.domain.entity.Product;
@@ -119,7 +117,20 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<FindProductResponseDto> findpr(int id) {
-        return productRepository.findProductByCategoryShop(id);
+    public PaginationResponseDto<FindProductResponseDto> findProductsByCategoryShop(int shopId,int categoryId, PaginationRequestDto request) {
+        Optional<Shop> shop = Optional.ofNullable(shopRepository.findById(shopId).orElseThrow(()->new NotFoundException(ErrorMessage.Shop.ERR_NOT_FOUND_ID,new String[]{String.valueOf(shopId)})));
+
+        Pageable pageable = PaginationUtil.buildPageable(request);
+
+        Page<FindProductResponseDto> page = productRepository.findProductByCategoryShop(shopId,categoryId,pageable);
+
+        PaginationResponseDto<FindProductResponseDto> responseDto = new PaginationResponseDto<>();
+        responseDto.setItems(page.getContent());
+
+        PagingMeta pagingMeta = new PagingMeta(page.getTotalElements(), page.getTotalPages(), page.getNumber(), page.getSize());
+        responseDto.setMeta(pagingMeta);
+        return responseDto;
     }
+
+
 }

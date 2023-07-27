@@ -17,6 +17,6 @@ public interface CategoryService {
 
     PaginationResponseDto<Category> getCategories(PaginationFullRequestDto request);
 
-    PaginationResponseDto<Category> getCategoriesByShop(int shopId, PaginationFullRequestDto request);
+    PaginationResponseDto<CategoryResponseDto> getCategoriesByShop(int shopId, PaginationFullRequestDto request);
 
 }

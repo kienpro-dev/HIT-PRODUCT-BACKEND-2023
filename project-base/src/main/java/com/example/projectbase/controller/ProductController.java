@@ -5,6 +5,7 @@ import com.example.projectbase.base.VsResponseUtil;
 import com.example.projectbase.constant.UrlConstant;
 import com.example.projectbase.domain.dto.ProductDto;
 import com.example.projectbase.domain.dto.pagination.PaginationFullRequestDto;
+import com.example.projectbase.domain.dto.pagination.PaginationRequestDto;
 import com.example.projectbase.domain.dto.pagination.PaginationSortRequestDto;
 import com.example.projectbase.repository.CategoryRepository;
 import com.example.projectbase.service.ProductService;
@@ -50,6 +51,12 @@ public class ProductController {
     @GetMapping(UrlConstant.Product.GET_PRODUCTS_BY_SHOP)
     public ResponseEntity<?> getProductByShop(@PathVariable int shopId,@Valid @ParameterObject PaginationSortRequestDto requestDTO) {
         return VsResponseUtil.success(productService.findProductsByShop(shopId,requestDTO));
+    }
+
+    @Operation(summary = "API get products by category and shop")
+    @GetMapping(UrlConstant.Product.GET_PRODUCTS_BY_CATEGORY_SHOP)
+    public ResponseEntity<?> getProductByCategoryShop(@PathVariable int shopId,@PathVariable int categoryId,@Valid @ParameterObject PaginationRequestDto requestDTO) {
+        return VsResponseUtil.success(productService.findProductsByCategoryShop(shopId,categoryId,requestDTO));
     }
 
     @Operation(summary = "API get products by category")
