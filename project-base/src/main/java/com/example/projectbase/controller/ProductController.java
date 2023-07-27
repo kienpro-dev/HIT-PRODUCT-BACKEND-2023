@@ -6,6 +6,7 @@ import com.example.projectbase.constant.UrlConstant;
 import com.example.projectbase.domain.dto.ProductDto;
 import com.example.projectbase.domain.dto.pagination.PaginationFullRequestDto;
 import com.example.projectbase.domain.dto.pagination.PaginationSortRequestDto;
+import com.example.projectbase.repository.CategoryRepository;
 import com.example.projectbase.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import javax.validation.Valid;
 public class ProductController {
     private final ProductService productService;
 
+    private final CategoryRepository categoryRepository;
     @Operation(summary = "API get product")
     @GetMapping(UrlConstant.Product.GET_PRODUCT)
     public ResponseEntity<?> getProductById(@PathVariable int productId) {
@@ -55,4 +57,5 @@ public class ProductController {
     public ResponseEntity<?> getProductByCategory(@PathVariable int categoryId,@Valid @ParameterObject PaginationSortRequestDto requestDTO) {
         return VsResponseUtil.success(productService.findProductsByCategory(categoryId,requestDTO));
     }
+
 }

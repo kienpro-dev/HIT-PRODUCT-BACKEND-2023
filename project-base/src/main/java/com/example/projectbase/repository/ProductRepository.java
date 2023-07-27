@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -27,4 +28,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Query(value = "SELECT new com.example.projectbase.domain.dto.response.FindProductResponseDto (p.id, p.name, p.image, p.price, p.stock,p.description) FROM Product p INNER JOIN p.categories sc  WHERE sc.id= ?1 ")
     Page<FindProductResponseDto> findProductByCategory(int id, Pageable pageable);
+
+
 }

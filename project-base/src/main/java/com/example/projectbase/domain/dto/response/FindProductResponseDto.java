@@ -67,6 +67,5 @@ public class FindProductResponseDto {
         this.productPrice = productPrice;
         this.productStock = productStock;
         this.productDescription = productDescription;
-
     }
 }

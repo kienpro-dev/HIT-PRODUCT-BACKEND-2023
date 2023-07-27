@@ -24,6 +24,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -115,5 +116,10 @@ public class ProductServiceImpl implements ProductService {
         PagingMeta pagingMeta = new PagingMeta(page.getTotalElements(), page.getTotalPages(), page.getNumber(), page.getSize(), request.getSortBy(), request.getIsAscending().toString());
         responseDto.setMeta(pagingMeta);
         return responseDto;
+    }
+
+    @Override
+    public List<FindProductResponseDto> findpr(int id) {
+        return productRepository.findProductByCategoryShop(id);
     }
 }

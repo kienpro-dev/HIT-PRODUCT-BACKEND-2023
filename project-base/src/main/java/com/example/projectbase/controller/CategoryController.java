@@ -48,4 +48,6 @@ public class CategoryController {
     public ResponseEntity<?>getCategoriesByShop(@PathVariable int shopId,@Valid @ParameterObject PaginationFullRequestDto requestDto){
         return VsResponseUtil.success(categoryService.getCategoriesByShop(shopId,requestDto));
     }
+
+
 }

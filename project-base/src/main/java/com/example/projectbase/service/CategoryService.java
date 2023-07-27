@@ -3,6 +3,7 @@ package com.example.projectbase.service;
 import com.example.projectbase.domain.dto.CategoryDto;
 import com.example.projectbase.domain.dto.pagination.PaginationFullRequestDto;
 import com.example.projectbase.domain.dto.pagination.PaginationResponseDto;
+import com.example.projectbase.domain.dto.response.CategoryResponseDto;
 import com.example.projectbase.domain.entity.Category;
 
 public interface CategoryService {
@@ -16,6 +17,6 @@ public interface CategoryService {
 
     PaginationResponseDto<Category> getCategories(PaginationFullRequestDto request);
 
-    PaginationResponseDto<Category> getCategoriesByShop(int shopId,PaginationFullRequestDto request);
+    PaginationResponseDto<Category> getCategoriesByShop(int shopId, PaginationFullRequestDto request);
 
 }

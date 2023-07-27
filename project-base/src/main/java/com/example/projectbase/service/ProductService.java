@@ -7,6 +7,8 @@ import com.example.projectbase.domain.dto.pagination.PaginationSortRequestDto;
 import com.example.projectbase.domain.dto.response.FindProductResponseDto;
 import com.example.projectbase.domain.entity.Product;
 
+import java.util.List;
+
 public interface ProductService {
     Product createProduct(ProductDto productDto);
 
@@ -21,4 +23,6 @@ public interface ProductService {
     PaginationResponseDto<FindProductResponseDto> findProductsByShop(int id, PaginationSortRequestDto request);
 
     PaginationResponseDto<FindProductResponseDto> findProductsByCategory(int id, PaginationSortRequestDto request);
+
+    List<FindProductResponseDto> findpr(int id);
 }

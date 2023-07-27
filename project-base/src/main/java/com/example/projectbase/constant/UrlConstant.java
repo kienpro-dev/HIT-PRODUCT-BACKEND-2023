@@ -61,7 +61,7 @@ public class UrlConstant {
         public static final String GET_CATEGORY = PRE_FIX + "/{categoryId}";
         public static final String UPDATE_CATEGORY = PRE_FIX + "/{categoryId}";
         public static final String DELETE_CATEGORY = PRE_FIX + "/{categoryId}";
-        public static final String GET_CATEGORIES_BY_SHOP=PRE_FIX+"/get_categories-by-shop"+"/{shopId}";
+        public static final String GET_CATEGORIES_BY_SHOP=PRE_FIX+"/get-categories-by-shop"+"/{shopId}";
         private Category() {
         }
     }

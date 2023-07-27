@@ -24,6 +24,7 @@ public class Category extends DateAuditing {
     String name;
 
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "category_product",
             joinColumns = @JoinColumn(name = "category_id",foreignKey = @ForeignKey(name = "FK_CATEGORY_PRODUCT1")),
