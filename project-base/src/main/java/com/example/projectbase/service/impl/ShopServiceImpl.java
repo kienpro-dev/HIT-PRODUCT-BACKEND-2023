@@ -3,10 +3,12 @@ package com.example.projectbase.service.impl;
 import com.example.projectbase.constant.CommonConstant;
 import com.example.projectbase.constant.ErrorMessage;
 import com.example.projectbase.constant.SortByDataConstant;
+import com.example.projectbase.constant.SuccessMessage;
 import com.example.projectbase.domain.dto.ShopDto;
 import com.example.projectbase.domain.dto.pagination.PaginationFullRequestDto;
 import com.example.projectbase.domain.dto.pagination.PaginationResponseDto;
 import com.example.projectbase.domain.dto.pagination.PagingMeta;
+import com.example.projectbase.domain.dto.response.CommonResponseDto;
 import com.example.projectbase.domain.entity.Shop;
 import com.example.projectbase.domain.mapper.ShopMapper;
 import com.example.projectbase.exception.NotFoundException;
@@ -61,10 +63,10 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public Object deleteShopById(int id) {
+    public CommonResponseDto deleteShopById(int id) {
         Shop shop = shopRepository.findById(id).orElseThrow(() -> new NotFoundException(ErrorMessage.Shop.ERR_NOT_FOUND_ID, new String[]{String.valueOf(id)}));
         shopRepository.delete(shop);
-        return null;
+        return new CommonResponseDto(true, SuccessMessage.DELETE_SHOP);
     }
 
     @Override

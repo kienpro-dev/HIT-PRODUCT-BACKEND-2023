@@ -3,10 +3,12 @@ package com.example.projectbase.service.impl;
 import com.example.projectbase.constant.CommonConstant;
 import com.example.projectbase.constant.ErrorMessage;
 import com.example.projectbase.constant.SortByDataConstant;
+import com.example.projectbase.constant.SuccessMessage;
 import com.example.projectbase.domain.dto.CustomerDto;
 import com.example.projectbase.domain.dto.pagination.PaginationFullRequestDto;
 import com.example.projectbase.domain.dto.pagination.PaginationResponseDto;
 import com.example.projectbase.domain.dto.pagination.PagingMeta;
+import com.example.projectbase.domain.dto.response.CommonResponseDto;
 import com.example.projectbase.domain.entity.Customer;
 import com.example.projectbase.domain.mapper.CustomerMapper;
 import com.example.projectbase.exception.NotFoundException;
@@ -61,10 +63,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Object deleteCustomerById(int id) {
+    public CommonResponseDto deleteCustomerById(int id) {
         Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFoundException(ErrorMessage.Customer.ERR_NOT_FOUND_ID, new String[]{String.valueOf(id)}));
         customerRepository.delete(customer);
-        return null;
+        return new CommonResponseDto(true, SuccessMessage.DELETE_CUSTOMER);
     }
 
     @Override

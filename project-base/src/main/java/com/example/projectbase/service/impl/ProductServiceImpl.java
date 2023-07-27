@@ -2,10 +2,12 @@ package com.example.projectbase.service.impl;
 
 import com.example.projectbase.constant.ErrorMessage;
 import com.example.projectbase.constant.SortByDataConstant;
+import com.example.projectbase.constant.SuccessMessage;
 import com.example.projectbase.domain.dto.ProductDto;
 import com.example.projectbase.domain.dto.pagination.PaginationFullRequestDto;
 import com.example.projectbase.domain.dto.pagination.PaginationResponseDto;
 import com.example.projectbase.domain.dto.pagination.PagingMeta;
+import com.example.projectbase.domain.dto.response.CommonResponseDto;
 import com.example.projectbase.domain.entity.Product;
 import com.example.projectbase.domain.mapper.ProductMapper;
 import com.example.projectbase.exception.NotFoundException;
@@ -54,10 +56,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Object deleteProductById(int id) {
+    public CommonResponseDto deleteProductById(int id) {
         Product product = productRepository.findById(id).orElseThrow(() -> new NotFoundException(ErrorMessage.Product.ERR_NOT_FOUND_ID, new String[]{String.valueOf(id)}));
         productRepository.delete(product);
-        return null;
+        return new CommonResponseDto(true, SuccessMessage.DELETE_PRODUCT);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.example.projectbase.service;
 import com.example.projectbase.domain.dto.ProductDto;
 import com.example.projectbase.domain.dto.pagination.PaginationFullRequestDto;
 import com.example.projectbase.domain.dto.pagination.PaginationResponseDto;
+import com.example.projectbase.domain.dto.response.CommonResponseDto;
 import com.example.projectbase.domain.entity.Product;
 
 public interface ProductService {
@@ -12,7 +13,7 @@ public interface ProductService {
 
     Product getProductById(int id);
 
-    Object deleteProductById(int id);
+    CommonResponseDto deleteProductById(int id);
 
     PaginationResponseDto<Product> getProducts(PaginationFullRequestDto request);
 }
