@@ -1,7 +1,6 @@
 package com.example.projectbase.domain.dto;
 
 
-
 import com.example.projectbase.constant.ErrorMessage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,6 +27,8 @@ public class ProductDto {
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     @Min(value = 0)
     private int price;
+
+
 
     @Length(max = 100000)
     private String description;

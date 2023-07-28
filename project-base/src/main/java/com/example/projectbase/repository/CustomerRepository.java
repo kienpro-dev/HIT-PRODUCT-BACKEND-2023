@@ -1,6 +1,7 @@
 package com.example.projectbase.repository;
 
 import com.example.projectbase.domain.dto.CustomerDto;
+import com.example.projectbase.domain.entity.Address;
 import com.example.projectbase.domain.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

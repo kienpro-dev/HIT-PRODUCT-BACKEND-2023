@@ -1,6 +1,7 @@
 package com.example.projectbase.domain.dto;
 
 import com.example.projectbase.constant.ErrorMessage;
+import com.example.projectbase.domain.entity.Address;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
