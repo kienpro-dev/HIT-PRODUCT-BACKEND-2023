@@ -17,11 +17,11 @@ public class VoucherDetail implements Serializable {
     @Column(name = "voucher_detail_id",insertable = false, updatable = false, nullable = false)
     private int id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "voucher_id", foreignKey = @ForeignKey(name = "FK_VOUCHER_CUSTOMER1"))
     private Voucher voucher;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "FK_VOUCHER_CUSTOMER2"))
     private Customer customer;
 

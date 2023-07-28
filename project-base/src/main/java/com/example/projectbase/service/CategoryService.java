@@ -4,6 +4,7 @@ import com.example.projectbase.domain.dto.CategoryDto;
 import com.example.projectbase.domain.dto.pagination.PaginationFullRequestDto;
 import com.example.projectbase.domain.dto.pagination.PaginationResponseDto;
 import com.example.projectbase.domain.dto.response.CommonResponseDto;
+import com.example.projectbase.domain.dto.response.CategoryResponseDto;
 import com.example.projectbase.domain.entity.Category;
 
 public interface CategoryService {
@@ -16,4 +17,7 @@ public interface CategoryService {
     CommonResponseDto deleteCategoryById(int id);
 
     PaginationResponseDto<Category> getCategories(PaginationFullRequestDto request);
+
+    PaginationResponseDto<CategoryResponseDto> getCategoriesByShop(int shopId, PaginationFullRequestDto request);
+
 }

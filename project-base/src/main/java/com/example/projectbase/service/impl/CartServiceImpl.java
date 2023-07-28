@@ -20,9 +20,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public CommonResponseDto createCartForCustomer(CartDto cartDto) {
         Cart cart = cartRepository.save(cartMapper.toCart(cartDto));
-
-        cartRepository.addCartForCustomer(cart.getId(), cartDto.getCustomer_id());
-
+        cartRepository.addCartForCustomer(cart.getId(), cartDto.getCustomerId());
         return new CommonResponseDto(true, SuccessMessage.GENERATE_CART);
     }
 

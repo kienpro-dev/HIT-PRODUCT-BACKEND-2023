@@ -20,6 +20,8 @@ public class FindProductResponseDto {
 
     private String productImageUrl;
 
+    private String productDescription;
+
     private int productPrice;
 
     private int productStock;
@@ -56,5 +58,14 @@ public class FindProductResponseDto {
         this.shopTimeClose = timeFormat.format(shopTimeClose);
         this.shopTimeOpen = timeFormat.format(shopTimeOpen);
         this.shopHotline = shopHotline;
+    }
+
+    public FindProductResponseDto(int productId, String productName, String productImageUrl, int productPrice, int productStock, String productDescription) {
+        this.productId=productId;
+        this.productName = productName;
+        this.productImageUrl = productImageUrl;
+        this.productPrice = productPrice;
+        this.productStock = productStock;
+        this.productDescription = productDescription;
     }
 }
