@@ -1,6 +1,9 @@
 package com.example.projectbase.repository;
 
+import com.example.projectbase.domain.dto.response.ShopResponseDto;
 import com.example.projectbase.domain.entity.Shop;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -11,12 +14,17 @@ import java.sql.Time;
 import java.util.Optional;
 
 @Repository
-public interface ShopRepository extends JpaRepository<Shop,Integer> {
-    @Query("SELECT s FROM Shop s WHERE s.id = ?1")
-    Optional<Shop> findById(int id);
+public interface ShopRepository extends JpaRepository<Shop, Integer> {
+
+
+    @Query("SELECT new com.example.projectbase.domain.dto.response.ShopResponseDto(s.id,s.name,a.addressName,s.hotline,s.timeClose,s.timeOpen) FROM Shop s INNER JOIN s.address a WHERE s.id = ?1")
+    Optional<ShopResponseDto> findShopById(int id);
 
     @Transactional
     @Modifying
-    @Query("UPDATE Shop s SET s.name = ?1, s.address = ?2, s.hotline = ?3, s.timeOpen = ?4, s.timeClose = ?5, s.lastModifiedDate = CURRENT_TIMESTAMP where s.id = ?6")
-    void updateShop(String name, String address, String hotline, Time timeOpen, Time timeClose, int id);
+    @Query("UPDATE Shop s SET s.name = ?1, s.hotline = ?2, s.timeOpen = ?3, s.timeClose = ?4, s.lastModifiedDate = CURRENT_TIMESTAMP WHERE s.id = ?5")
+    void updateShop(String name, String hotline, Time timeOpen, Time timeClose, int id);
+
+    @Query("SELECT new com.example.projectbase.domain.dto.response.ShopResponseDto(s.id,s.name,s.address.addressName,s.hotline,s.timeClose,s.timeOpen,s.createdDate,s.lastModifiedDate) FROM Shop s")
+    Page<ShopResponseDto> findAllShop(Pageable pageable);
 }
