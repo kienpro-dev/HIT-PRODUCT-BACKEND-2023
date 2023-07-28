@@ -9,6 +9,7 @@ import com.example.projectbase.domain.dto.pagination.PaginationFullRequestDto;
 import com.example.projectbase.domain.dto.pagination.PaginationResponseDto;
 import com.example.projectbase.domain.dto.pagination.PagingMeta;
 import com.example.projectbase.domain.dto.response.CommonResponseDto;
+import com.example.projectbase.domain.dto.response.ShopResponseDto;
 import com.example.projectbase.domain.entity.Shop;
 import com.example.projectbase.domain.mapper.ShopMapper;
 import com.example.projectbase.exception.NotFoundException;
@@ -58,8 +59,8 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public Shop getShopById(int id) {
-        return shopRepository.findById(id).orElseThrow(() -> new NotFoundException(ErrorMessage.Shop.ERR_NOT_FOUND_ID, new String[]{String.valueOf(id)}));
+    public ShopResponseDto getShopById(int id) {
+        return shopRepository.findShopById(id).orElseThrow(() -> new NotFoundException(ErrorMessage.Shop.ERR_NOT_FOUND_ID, new String[]{String.valueOf(id)}));
     }
 
     @Override
