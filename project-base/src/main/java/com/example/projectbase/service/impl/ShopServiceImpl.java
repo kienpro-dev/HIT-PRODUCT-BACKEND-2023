@@ -50,7 +50,7 @@ public class ShopServiceImpl implements ShopService {
         }
 
         try {
-            shopRepository.updateShop(shopDto.getName(), shopDto.getAddress(), shopDto.getHotline(), new Time(timeFormat.parse(shopDto.getTimeOpen()).getTime()), new Time(timeFormat.parse(shopDto.getTimeClose()).getTime()), id);
+            shopRepository.updateShop(shopDto.getName(), shopDto.getHotline(), new Time(timeFormat.parse(shopDto.getTimeOpen()).getTime()), new Time(timeFormat.parse(shopDto.getTimeClose()).getTime()), id);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -71,12 +71,12 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public PaginationResponseDto<Shop> getShops(PaginationFullRequestDto request) {
+    public PaginationResponseDto<ShopResponseDto> getShops(PaginationFullRequestDto request) {
         Pageable pageable = PaginationUtil.buildPageable(request, SortByDataConstant.SHOP);
 
-        Page<Shop> page = shopRepository.findAll(pageable);
+        Page<ShopResponseDto> page = shopRepository.findAllShop(pageable);
 
-        PaginationResponseDto<Shop> responseDto = new PaginationResponseDto<>();
+        PaginationResponseDto<ShopResponseDto> responseDto = new PaginationResponseDto<>();
         responseDto.setItems(page.getContent());
 
         PagingMeta pagingMeta = new PagingMeta(page.getTotalElements(), page.getTotalPages(), page.getNumber(), page.getSize(), request.getSortBy(), request.getIsAscending().toString());

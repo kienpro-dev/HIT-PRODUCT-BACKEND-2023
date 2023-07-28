@@ -25,9 +25,6 @@ public class Shop extends DateAuditing {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String address;
-
 
     @Column(nullable = false)
     private String hotline;
@@ -49,5 +46,9 @@ public class Shop extends DateAuditing {
             inverseJoinColumns = @JoinColumn(name = "product_id",foreignKey = @ForeignKey(name = "FK_SHOP_PRODUCT2")))
     @JsonIgnore
     private List<Product> products;
+
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "address_id", foreignKey = @ForeignKey(name="FK_SHOP_ADDRESS"))
+    private Address address;
 
 }

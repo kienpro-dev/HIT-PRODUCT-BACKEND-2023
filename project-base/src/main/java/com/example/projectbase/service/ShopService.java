@@ -16,5 +16,5 @@ public interface ShopService {
 
     CommonResponseDto deleteShopById(int id);
 
-    PaginationResponseDto<Shop> getShops(PaginationFullRequestDto request);
+    PaginationResponseDto<ShopResponseDto> getShops(PaginationFullRequestDto request);
 }

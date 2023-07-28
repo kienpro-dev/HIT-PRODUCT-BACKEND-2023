@@ -37,8 +37,9 @@ public class Bill extends DateAuditing {
     private Date timeShip;
 
 
-    @Column(nullable = false)
-    private String address;
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "address_id",foreignKey = @ForeignKey(name = "FK_BILL_ADDRESS"))
+    private Address address;
 
     @OneToMany(mappedBy = "bill",cascade = CascadeType.ALL)
     private List<BillDetail> billDetail;
