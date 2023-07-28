@@ -42,4 +42,12 @@ public class CategoryController {
     public ResponseEntity<?> deleteCategory(@PathVariable int categoryId) {
         return VsResponseUtil.success(categoryService.deleteCategoryById(categoryId));
     }
+
+    @Operation(summary = "API get categories by shop")
+    @GetMapping(UrlConstant.Category.GET_CATEGORIES_BY_SHOP)
+    public ResponseEntity<?>getCategoriesByShop(@PathVariable int shopId,@Valid @ParameterObject PaginationFullRequestDto requestDto){
+        return VsResponseUtil.success(categoryService.getCategoriesByShop(shopId,requestDto));
+    }
+
+
 }

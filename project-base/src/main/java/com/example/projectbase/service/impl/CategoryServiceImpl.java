@@ -6,10 +6,13 @@ import com.example.projectbase.domain.dto.CategoryDto;
 import com.example.projectbase.domain.dto.pagination.PaginationFullRequestDto;
 import com.example.projectbase.domain.dto.pagination.PaginationResponseDto;
 import com.example.projectbase.domain.dto.pagination.PagingMeta;
+import com.example.projectbase.domain.dto.response.CategoryResponseDto;
 import com.example.projectbase.domain.entity.Category;
+import com.example.projectbase.domain.entity.Shop;
 import com.example.projectbase.domain.mapper.CategoryMapper;
 import com.example.projectbase.exception.NotFoundException;
 import com.example.projectbase.repository.CategoryRepository;
+import com.example.projectbase.repository.ShopRepository;
 import com.example.projectbase.service.CategoryService;
 import com.example.projectbase.util.PaginationUtil;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +29,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryMapper categoryMapper;
 
+    private final ShopRepository shopRepository;
+
     @Override
     public Category createCategory(CategoryDto categoryDto) {
         Category category = categoryMapper.toCategory(categoryDto);
@@ -36,7 +41,7 @@ public class CategoryServiceImpl implements CategoryService {
     public Category updateCategory(int id, CategoryDto categoryDto) {
         Optional<Category> category = categoryRepository.findById(id);
 
-        if(category.isEmpty()) {
+        if (category.isEmpty()) {
             throw new NotFoundException(ErrorMessage.Category.ERR_NOT_FOUND_ID, new String[]{String.valueOf(id)});
         }
 
@@ -64,6 +69,21 @@ public class CategoryServiceImpl implements CategoryService {
         Page<Category> page = categoryRepository.findAll(pageable);
 
         PaginationResponseDto<Category> responseDto = new PaginationResponseDto<>();
+        responseDto.setItems(page.getContent());
+
+        PagingMeta pagingMeta = new PagingMeta(page.getTotalElements(), page.getTotalPages(), page.getNumber(), page.getSize(), request.getSortBy(), request.getIsAscending().toString());
+        responseDto.setMeta(pagingMeta);
+        return responseDto;
+    }
+
+    @Override
+    public PaginationResponseDto<CategoryResponseDto> getCategoriesByShop(int shopId, PaginationFullRequestDto request) {
+        Optional<Shop> shop = Optional.ofNullable(shopRepository.findById(shopId).orElseThrow(() -> new NotFoundException(ErrorMessage.Shop.ERR_NOT_FOUND_ID, new String[]{String.valueOf(shopId)})));
+        Pageable pageable = PaginationUtil.buildPageable(request, SortByDataConstant.CATEGORY);
+
+        Page<CategoryResponseDto> page = categoryRepository.findCategoryByShop(shopId, pageable);
+
+        PaginationResponseDto<CategoryResponseDto> responseDto = new PaginationResponseDto<>();
         responseDto.setItems(page.getContent());
 
         PagingMeta pagingMeta = new PagingMeta(page.getTotalElements(), page.getTotalPages(), page.getNumber(), page.getSize(), request.getSortBy(), request.getIsAscending().toString());
