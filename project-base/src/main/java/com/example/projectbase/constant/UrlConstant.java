@@ -90,4 +90,12 @@ public class UrlConstant {
         private Cart() {
         }
     }
+
+    public static class Address {
+        private static final String PRE_FIX = "/address";
+
+        public static final String SAVE_LOCATION_CUSTOMER = PRE_FIX + "/{customerId}";
+        private Address() {
+        }
+    }
 }
