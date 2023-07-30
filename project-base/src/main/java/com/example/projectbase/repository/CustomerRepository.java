@@ -23,4 +23,9 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     @Modifying
     @Query("UPDATE Customer c SET c.fullName = ?1, c.address = ?2, c.dob = ?3, c.phoneNumber = ?4, c.lastModifiedDate = CURRENT_TIMESTAMP where c.id = ?5")
     void updateCustomer(String fullName, String address, Date date, String phoneNumber, int id);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Customer c SET c.address = ?1, c.lastModifiedDate = CURRENT_TIMESTAMP where c.id = ?2")
+    void saveLocation(String address, int id);
 }
