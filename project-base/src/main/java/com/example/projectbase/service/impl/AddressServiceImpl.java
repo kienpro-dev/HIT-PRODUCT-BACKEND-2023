@@ -73,12 +73,12 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public CommonResponseDto saveLocationCustomer(int customerId, AddressDto addressDto) {
+    public AddressDto saveLocationCustomer(int customerId, AddressDto addressDto) {
         String addressName = getLocationName(addressDto);
 
         Optional<Customer> customer = Optional.ofNullable(customerRepository.findById(customerId).orElseThrow(() -> new NotFoundException(ErrorMessage.Customer.ERR_NOT_FOUND_ID, new String[]{String.valueOf(customerId)})));
 
         customerRepository.saveLocation(addressName, customerId);
-        return new CommonResponseDto(true, addressName);
+        return new AddressDto(addressDto.getLatitude(), addressDto.getLongitude(), addressName);
     }
 }
