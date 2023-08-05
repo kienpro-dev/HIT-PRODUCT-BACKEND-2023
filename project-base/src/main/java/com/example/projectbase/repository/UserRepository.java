@@ -37,8 +37,8 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("SELECT new com.example.projectbase.domain.dto.response.FindProductResponseDto(p.id, p.name, p.image, p.price, p.stock, c.id, c.name, s.id, s.name, s.address.addressName, s.timeOpen, s.timeClose, s.hotline) FROM Product p INNER JOIN p.shops s INNER JOIN p.categories c WHERE (p.name LIKE %:keyword%) OR (s.name LIKE %:keyword%) OR (c.name LIKE %:keyword%)")
     Page<FindProductResponseDto> find(String keyword, Pageable pageable);
 
-    @Query("SELECT new com.example.projectbase.domain.dto.response.FindProductResponseDto(p.id, p.name, p.image, p.price, p.stock, c.id, c.name, s.id, s.name, s.address.addressName, s.timeOpen, s.timeClose, s.hotline) FROM Product p INNER JOIN p.shops s INNER JOIN p.categories c WHERE p.id = ?1")
-    Optional<FindProductResponseDto> findProductDetail(int productId);
+    @Query("SELECT new com.example.projectbase.domain.dto.response.FindProductResponseDto(p.id, p.name, p.image, p.price, p.stock, c.id, c.name, s.id, s.name, s.address.addressName, s.timeOpen, s.timeClose, s.hotline) FROM Product p INNER JOIN p.shopProductDetail sp INNER JOIN sp.shop s INNER JOIN p.categories c WHERE p.id = ?1")
+    Optional<FindProductResponseDto> findProductDetail(int id);
 
 
 }
