@@ -33,13 +33,17 @@ public class Bill extends DateAuditing {
     @Column(nullable = false)
     private String phoneNumber;
 
-
+    @Column(nullable = false)
     private Date timeShip;
 
+    @Column(nullable = false)
+    private double distance;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "address_id",foreignKey = @ForeignKey(name = "FK_BILL_ADDRESS"))
-    private Address address;
+    @Column(nullable = false)
+    private double feeShip;
+
+    @Column(nullable = false)
+    private String address;
 
     @OneToMany(mappedBy = "bill",cascade = CascadeType.ALL)
     private List<BillDetail> billDetail;

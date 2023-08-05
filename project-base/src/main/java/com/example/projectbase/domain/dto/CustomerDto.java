@@ -19,9 +19,6 @@ public class CustomerDto {
     private String fullName;
 
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
-    private String address;
-
-    @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     @Pattern(regexp = "^(?!0000)(?!.*-00)(?!.*00-)[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[01])$", message = ErrorMessage.INVALID_DATE)
     private String dob;
 

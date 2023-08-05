@@ -22,7 +22,7 @@ public class UrlConstant {
         public static final String GET_CURRENT_USER = PRE_FIX + "/current";
 
         public static final String FIND_PRODUCT_INFO = PRE_FIX + "/find-product-info";
-        public static final String GET_PRODUCT_DETAIL = PRE_FIX + "/get-product-detail/{productId}";
+        public static final String GET_PRODUCT_DETAIL = PRE_FIX + "/get-product-detail/{productId}/shop/{shopId}";
 
         private User() {
         }
@@ -36,6 +36,7 @@ public class UrlConstant {
         public static final String UPDATE_CUSTOMER = PRE_FIX + "/{customerId}";
         public static final String DELETE_CUSTOMER = PRE_FIX + "/{customerId}";
 
+        public static final String PLACE_ORDER = PRE_FIX + "/{customerId}" + "/bill";
         private Customer() {
         }
     }
@@ -88,6 +89,22 @@ public class UrlConstant {
         public static final String UPDATE_CART_INFO = PRE_FIX + "/{cartId}" + "/products" + "/{productId}";
 
         private Cart() {
+        }
+    }
+
+    public static class Address {
+        private static final String PRE_FIX = "/address";
+
+        public static final String SAVE_LOCATION_CUSTOMER = PRE_FIX + "/{customerId}";
+        private Address() {
+        }
+    }
+
+    public static class Bill {
+        private static final String PRE_FIX = "/bill";
+
+        public static final String GET_BILL_INFO = PRE_FIX + "/{customerId}";
+        private Bill() {
         }
     }
 }

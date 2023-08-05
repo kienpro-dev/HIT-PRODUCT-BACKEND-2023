@@ -33,7 +33,7 @@ public class CartDetailServiceImpl implements CartDetailService {
     private final CartDetailMapper cartDetailMapper;
 
     @Override
-    public Object addProductToCart(CartDetailDto cartDetailDto) {
+    public CommonResponseDto addProductToCart(CartDetailDto cartDetailDto) {
         CartDetail cartDetail = getCartDetail(cartDetailDto.getCartId(), cartDetailDto.getProductId());
 
         if(cartDetail != null) {
@@ -43,7 +43,7 @@ public class CartDetailServiceImpl implements CartDetailService {
             cartDetailRepository.save(cartDetailMapper.toCartDetail(cartDetailDto));
         }
 
-        return null;
+        return new CommonResponseDto(true, SuccessMessage.ADD_PRODUCT_TO_CART);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class CartDetailServiceImpl implements CartDetailService {
 
         cartDetailRepository.updateCartDetail(cartDetailDto.getQuantity(), cartDetailDto.getCartId(), cartDetailDto.getProductId());
 
-        return new CommonResponseDto(true, SuccessMessage.ADD_PRODUCT_TO_CART);
+        return new CommonResponseDto(true, SuccessMessage.UPDATE_PRODUCT_TO_CART);
     }
 
     @Override

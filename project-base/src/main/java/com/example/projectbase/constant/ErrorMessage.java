@@ -21,6 +21,7 @@ public class ErrorMessage {
   public static final String INVALID_DATETIME = "invalid.datetime-format";
   public static final String INVALID_TIME="invalid.time-format";
   public static final String INVALID_REPEAT_PASSWORD = "invalid.password-repeat";
+  public static final String INVALID_COORDINATES = "invalid.coordinates";
 
   public static class Auth {
     public static final String ERR_INCORRECT_USERNAME = "exception.auth.incorrect.username";

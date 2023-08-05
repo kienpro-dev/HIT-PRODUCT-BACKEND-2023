@@ -2,10 +2,12 @@ package com.example.projectbase.service.impl;
 
 import com.example.projectbase.constant.ErrorMessage;
 import com.example.projectbase.constant.SortByDataConstant;
+import com.example.projectbase.constant.SuccessMessage;
 import com.example.projectbase.domain.dto.CategoryDto;
 import com.example.projectbase.domain.dto.pagination.PaginationFullRequestDto;
 import com.example.projectbase.domain.dto.pagination.PaginationResponseDto;
 import com.example.projectbase.domain.dto.pagination.PagingMeta;
+import com.example.projectbase.domain.dto.response.CommonResponseDto;
 import com.example.projectbase.domain.dto.response.CategoryResponseDto;
 import com.example.projectbase.domain.entity.Category;
 import com.example.projectbase.domain.entity.Shop;
@@ -56,10 +58,10 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Object deleteCategoryById(int id) {
+    public CommonResponseDto deleteCategoryById(int id) {
         Category category = categoryRepository.findById(id).orElseThrow(() -> new NotFoundException(ErrorMessage.Category.ERR_NOT_FOUND_ID, new String[]{String.valueOf(id)}));
         categoryRepository.delete(category);
-        return null;
+        return new CommonResponseDto(true, SuccessMessage.DELETE_CATEGORY);
     }
 
     @Override

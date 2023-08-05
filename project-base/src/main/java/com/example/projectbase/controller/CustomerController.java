@@ -5,6 +5,7 @@ import com.example.projectbase.base.VsResponseUtil;
 import com.example.projectbase.constant.UrlConstant;
 import com.example.projectbase.domain.dto.CustomerDto;
 import com.example.projectbase.domain.dto.pagination.PaginationFullRequestDto;
+import com.example.projectbase.service.BillDetailService;
 import com.example.projectbase.service.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,8 @@ import javax.validation.Valid;
 @RestApiV1
 public class CustomerController {
     private final CustomerService customerService;
+
+    private final BillDetailService billDetailService;
 
     @Operation(summary = "API get customer")
     @GetMapping(UrlConstant.Customer.GET_CUSTOMER)
@@ -41,5 +44,11 @@ public class CustomerController {
     @DeleteMapping(UrlConstant.Customer.DELETE_CUSTOMER)
     public ResponseEntity<?> deleteCustomer(@PathVariable int customerId) {
         return VsResponseUtil.success(customerService.deleteCustomerById(customerId));
+    }
+
+    @Operation(summary = "API place order")
+    @GetMapping(UrlConstant.Customer.PLACE_ORDER)
+    public ResponseEntity<?> getBillInfo(@Valid @PathVariable int customerId) {
+        return VsResponseUtil.success(billDetailService.getBillInfo(customerId));
     }
 }

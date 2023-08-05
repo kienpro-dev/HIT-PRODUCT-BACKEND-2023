@@ -7,7 +7,7 @@ import com.example.projectbase.domain.dto.response.CommonResponseDto;
 import java.util.List;
 
 public interface CartDetailService {
-    Object addProductToCart(CartDetailDto cartDetailDto);
+    CommonResponseDto addProductToCart(CartDetailDto cartDetailDto);
 
     List<CartResponseDto> getCartInfo(int cartId);
 
