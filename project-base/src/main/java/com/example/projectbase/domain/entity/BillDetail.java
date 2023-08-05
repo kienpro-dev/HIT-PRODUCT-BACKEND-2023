@@ -27,7 +27,7 @@ public class BillDetail implements Serializable {
     private Bill bill;
 
     @Column(nullable = false)
-    private String quantity;
+    private int quantity;
 
 
 

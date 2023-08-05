@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BillResponse {
+public class BillResponseDto extends ProductCartDto {
     private int billId;
 
     private String nameCustomer;
@@ -23,19 +23,18 @@ public class BillResponse {
 
     private Date timeShip;
 
+    private double distance;
+
     private double feeShip;
 
-    private List<CartResponseDto> listBuy;
-
-    public double getTotalBuyPrice() {
-        double total = 0;
-        for (CartResponseDto c : listBuy) {
-            total += c.getPrice() + c.getQuantity();
-        }
-        return total;
-    }
-
-    public double getTotalBillPrice() {
-        return getTotalBuyPrice() + getFeeShip();
+    public BillResponseDto(int billId, String nameCustomer, String address, String phoneNumber, Date timeShip, double distance, double feeShip, int productId, String productName, String productImageUrl, int quantity, int price) {
+        super(productId, productName, productImageUrl, quantity, price);
+        this.billId = billId;
+        this.nameCustomer = nameCustomer;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.timeShip = timeShip;
+        this.distance = distance;
+        this.feeShip = feeShip;
     }
 }

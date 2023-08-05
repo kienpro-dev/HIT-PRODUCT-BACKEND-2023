@@ -49,7 +49,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         try {
-            customerRepository.updateCustomer(customerDto.getFullName(), customerDto.getAddress(), dateFormat.parse(customerDto.getDob()), customerDto.getPhoneNumber(), id);
+            customerRepository.updateCustomer(customerDto.getFullName(), dateFormat.parse(customerDto.getDob()), customerDto.getPhoneNumber(), id);
         } catch (ParseException e) {
             e.printStackTrace();
         }

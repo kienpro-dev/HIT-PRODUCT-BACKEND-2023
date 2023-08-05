@@ -28,6 +28,12 @@ public class BillDto {
 
     private String timeShip;
 
+    private double feeShip;
+
+    private double distance;
+
+    private String address;
+
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     private int customerId;
 
