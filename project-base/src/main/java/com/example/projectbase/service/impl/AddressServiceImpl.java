@@ -6,9 +6,12 @@ import com.example.projectbase.constant.SuccessMessage;
 import com.example.projectbase.domain.dto.AddressDto;
 import com.example.projectbase.domain.dto.CustomerDto;
 import com.example.projectbase.domain.dto.response.CommonResponseDto;
+import com.example.projectbase.domain.entity.Address;
 import com.example.projectbase.domain.entity.Customer;
+import com.example.projectbase.domain.mapper.AddressMapper;
 import com.example.projectbase.domain.mapper.CustomerMapper;
 import com.example.projectbase.exception.NotFoundException;
+import com.example.projectbase.repository.AddressRepository;
 import com.example.projectbase.repository.CustomerRepository;
 import com.example.projectbase.service.AddressService;
 import com.example.projectbase.service.CustomerService;
@@ -27,6 +30,10 @@ import java.util.Optional;
 public class AddressServiceImpl implements AddressService {
 
     private final CustomerRepository customerRepository;
+
+    private final AddressRepository addressRepository;
+
+    private final AddressMapper addressMapper;
 
     private String getLocationName(AddressDto addressDto) {
         String url = "https://nominatim.openstreetmap.org/reverse?format=json&lat=" + addressDto.getLatitude() + "&lon=" + addressDto.getLongitude() + "&zoom=18&addressdetails=1";
@@ -74,11 +81,19 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public AddressDto saveLocationCustomer(int customerId, AddressDto addressDto) {
-        String addressName = getLocationName(addressDto);
-
         Optional<Customer> customer = Optional.ofNullable(customerRepository.findById(customerId).orElseThrow(() -> new NotFoundException(ErrorMessage.Customer.ERR_NOT_FOUND_ID, new String[]{String.valueOf(customerId)})));
 
-        customerRepository.saveLocation(addressName, customerId);
-        return new AddressDto(addressDto.getLatitude(), addressDto.getLongitude(), addressName);
+        String addressName = getLocationName(addressDto);
+        addressDto.setAddressName(addressName);
+        Address address = addressMapper.toAddress(addressDto);
+
+        boolean existByAddress = addressRepository.existsByLatitudeAndLongitude(addressDto.getLatitude(), addressDto.getLongitude());
+
+        if(!existByAddress) {
+            addressRepository.save(address);
+        }
+        customerRepository.saveLocation(addressRepository.findByLatitudeAndLongitude(addressDto.getLatitude(), address.getLongitude()).getId(), customerId);
+
+        return addressDto;
     }
 }

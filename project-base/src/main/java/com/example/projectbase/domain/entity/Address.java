@@ -29,4 +29,8 @@ public class Address extends DateAuditing {
     @JsonIgnore
     @OneToOne(mappedBy = "address",cascade = CascadeType.MERGE)
     private Shop shop;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "address",cascade = CascadeType.MERGE)
+    private Customer customer;
 }
