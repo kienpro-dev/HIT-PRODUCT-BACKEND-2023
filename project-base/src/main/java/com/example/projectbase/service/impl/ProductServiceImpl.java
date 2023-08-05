@@ -46,6 +46,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product createProduct(ProductDto productDto) {
         Product product = productMapper.toProduct(productDto);
+        String url= uploadFileUtil.uploadFile(productDto.getImage());
+        product.setImage(url);
         return productRepository.save(product);
     }
 

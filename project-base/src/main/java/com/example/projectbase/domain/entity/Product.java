@@ -49,9 +49,9 @@ public class Product extends DateAuditing {
     @JsonIgnore
     private List<Category> categories;
 
-    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "products")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
     @JsonIgnore
-    private List<Shop>shops;
+    private List<ShopProductDetail> shopProductDetail;
 
 
 }
