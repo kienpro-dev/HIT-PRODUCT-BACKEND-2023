@@ -35,7 +35,7 @@ public class CartDetailServiceImpl implements CartDetailService {
     @Override
     public CommonResponseDto addProductToCart(CartDetailDto cartDetailDto, int shopId) {
         Optional<CartDetail> cartDetail = getCartDetail(cartDetailDto.getCartId(), cartDetailDto.getProductId(), shopId);
-        Optional<ShopProductDetail> shopProductDetail = shopProductDetailRepository.findByShopIdAndProductId(cartDetailDto.getProductId(), shopId);
+        Optional<ShopProductDetail> shopProductDetail = Optional.ofNullable(shopProductDetailRepository.findByShopIdAndProductId(cartDetailDto.getProductId(), shopId).orElseThrow(() -> new NotFoundException(ErrorMessage.ShopProduct.ERR_NOT_FOUND)));
 
         if(cartDetail.isPresent()) {
             cartDetail.get().setQuantity(cartDetail.get().getQuantity() + cartDetailDto.getQuantity());
