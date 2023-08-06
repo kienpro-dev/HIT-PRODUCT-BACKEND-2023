@@ -18,6 +18,8 @@ public class CartDetailDto {
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     private int productId;
 
+    private int shopProductId;
+
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     private int cartId;
 

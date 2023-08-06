@@ -5,15 +5,11 @@ import com.example.projectbase.constant.SuccessMessage;
 import com.example.projectbase.domain.dto.CartDetailDto;
 import com.example.projectbase.domain.dto.response.CartResponseDto;
 import com.example.projectbase.domain.dto.response.CommonResponseDto;
-import com.example.projectbase.domain.entity.Cart;
-import com.example.projectbase.domain.entity.CartDetail;
-import com.example.projectbase.domain.entity.Product;
+import com.example.projectbase.domain.entity.*;
 import com.example.projectbase.domain.mapper.CartDetailMapper;
 import com.example.projectbase.exception.InvalidException;
 import com.example.projectbase.exception.NotFoundException;
-import com.example.projectbase.repository.CartDetailRepository;
-import com.example.projectbase.repository.CartRepository;
-import com.example.projectbase.repository.ProductRepository;
+import com.example.projectbase.repository.*;
 import com.example.projectbase.service.CartDetailService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,17 +26,25 @@ public class CartDetailServiceImpl implements CartDetailService {
 
     private final ProductRepository productRepository;
 
+    private final ShopRepository shopRepository;
+
+    private final ShopProductDetailRepository shopProductDetailRepository;
+
     private final CartDetailMapper cartDetailMapper;
 
     @Override
-    public CommonResponseDto addProductToCart(CartDetailDto cartDetailDto) {
-        CartDetail cartDetail = getCartDetail(cartDetailDto.getCartId(), cartDetailDto.getProductId());
+    public CommonResponseDto addProductToCart(CartDetailDto cartDetailDto, int shopId) {
+        Optional<CartDetail> cartDetail = getCartDetail(cartDetailDto.getCartId(), cartDetailDto.getProductId(), shopId);
+        Optional<ShopProductDetail> shopProductDetail = shopProductDetailRepository.findByShopIdAndProductId(cartDetailDto.getProductId(), shopId);
 
-        if(cartDetail != null) {
-            cartDetail.setQuantity(cartDetail.getQuantity() + cartDetailDto.getQuantity());
-            cartDetailRepository.updateCartDetail(cartDetail.getQuantity(), cartDetailDto.getCartId(), cartDetailDto.getProductId());
+        if(cartDetail.isPresent()) {
+            cartDetail.get().setQuantity(cartDetail.get().getQuantity() + cartDetailDto.getQuantity());
+
+            cartDetailRepository.updateCartDetail(cartDetail.get().getQuantity(), cartDetailDto.getCartId(), cartDetailDto.getProductId(), shopProductDetail.get().getId());
         } else {
+            cartDetailDto.setShopProductId(shopProductDetail.get().getId());
             cartDetailRepository.save(cartDetailMapper.toCartDetail(cartDetailDto));
+
         }
 
         return new CommonResponseDto(true, SuccessMessage.ADD_PRODUCT_TO_CART);
@@ -54,12 +58,12 @@ public class CartDetailServiceImpl implements CartDetailService {
     }
 
     @Override
-    public CommonResponseDto updateCartInfo(CartDetailDto cartDetailDto) {
-        CartDetail cartDetail = getCartDetail(cartDetailDto.getCartId(), cartDetailDto.getProductId());
+    public CommonResponseDto updateCartInfo(CartDetailDto cartDetailDto, int shopId) {
+        Optional<CartDetail> cartDetail = getCartDetail(cartDetailDto.getCartId(), cartDetailDto.getProductId(), shopId);
 
-        if(cartDetail != null) {
+        if(cartDetail.isPresent()) {
             if(cartDetailDto.getQuantity() <= 0) {
-                cartDetailRepository.delete(cartDetail);
+                cartDetailRepository.delete(cartDetail.get());
 
                 return new CommonResponseDto(true, SuccessMessage.DELETE_PRODUCT_TO_CART);
             }
@@ -67,8 +71,8 @@ public class CartDetailServiceImpl implements CartDetailService {
             throw new NotFoundException(ErrorMessage.Cart.ERR_NOT_FOUND_ID, new String[]{String.valueOf(cartDetailDto.getCartId())});
         }
 
-
-        cartDetailRepository.updateCartDetail(cartDetailDto.getQuantity(), cartDetailDto.getCartId(), cartDetailDto.getProductId());
+        Optional<ShopProductDetail> shopProductDetail = shopProductDetailRepository.findByShopIdAndProductId(cartDetailDto.getProductId(), shopId);
+        cartDetailRepository.updateCartDetail(cartDetailDto.getQuantity(), cartDetailDto.getCartId(), cartDetailDto.getProductId(), shopProductDetail.get().getId());
 
         return new CommonResponseDto(true, SuccessMessage.UPDATE_PRODUCT_TO_CART);
     }
@@ -79,11 +83,15 @@ public class CartDetailServiceImpl implements CartDetailService {
         return new CommonResponseDto(true, SuccessMessage.DELETE_PRODUCT_TO_CART);
     }
 
-    private CartDetail getCartDetail(int cartId, int productId) {
+    private Optional<CartDetail> getCartDetail(int cartId, int productId, int shopId) {
         Optional<Cart> cart = Optional.ofNullable(cartRepository.findById(cartId).orElseThrow(() -> new NotFoundException(ErrorMessage.Cart.ERR_NOT_FOUND_ID, new String[]{String.valueOf(cartId)})));
 
         Optional<Product> product = Optional.ofNullable(productRepository.findById(productId).orElseThrow(() -> new NotFoundException(ErrorMessage.Product.ERR_NOT_FOUND_ID, new String[]{String.valueOf(productId)})));
 
-        return cartDetailRepository.findByCartAndProduct(cart.get(), product.get());
+        Optional<Shop> shop = Optional.ofNullable(shopRepository.findById(shopId).orElseThrow(() -> new NotFoundException(ErrorMessage.Shop.ERR_NOT_FOUND_ID, new String[]{String.valueOf(shopId)})));
+
+//        Optional<List<ShopProductDetail>> shopProductDetails = shopProductDetailRepository.findByShop(shop.get());
+
+        return cartDetailRepository.findByCartIdAndProductIdAndShopId(cartId, productId, shopId);
     }
 }
