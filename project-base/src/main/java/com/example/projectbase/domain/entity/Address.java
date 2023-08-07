@@ -20,9 +20,9 @@ public class Address extends DateAuditing {
     @Column(name = "address_id")
     private int id;
 
-    private float latitude;
+    private double latitude;
 
-    private float longitude;
+    private double longitude;
 
     private String addressName;
 

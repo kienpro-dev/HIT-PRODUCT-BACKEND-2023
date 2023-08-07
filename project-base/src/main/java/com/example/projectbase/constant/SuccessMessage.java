@@ -18,4 +18,6 @@ public class SuccessMessage {
     public static final String ADD_PRODUCT_TO_CART = "Add product to cart successfully";
     public static final String DELETE_PRODUCT_TO_CART = "Delete product from cart successfully";
     public static final String UPDATE_PRODUCT_TO_CART = "Update product from cart successfully";
+
+    public static final String BUY_PRODUCT = "Buy product from cart successfully";
 }

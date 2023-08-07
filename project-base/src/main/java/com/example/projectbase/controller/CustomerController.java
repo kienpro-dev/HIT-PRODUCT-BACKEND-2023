@@ -51,4 +51,10 @@ public class CustomerController {
     public ResponseEntity<?> getBillInfo(@Valid @PathVariable int customerId) {
         return VsResponseUtil.success(billDetailService.getBillInfo(customerId));
     }
+
+    @Operation(summary = "API buy")
+    @GetMapping(UrlConstant.Customer.BUY)
+    public ResponseEntity<?> buy(@Valid @PathVariable int customerId, @PathVariable int billId) {
+        return VsResponseUtil.success(billDetailService.buy(billId, customerId));
+    }
 }

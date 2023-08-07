@@ -61,4 +61,8 @@ public class ErrorMessage {
   public static class Cart {
     public static final String ERR_NOT_FOUND_ID = "exception.cart.not.found.id";
   }
+
+  public static class ShopProduct {
+    public static final String ERR_NOT_FOUND = "exception.shop.not.found.product";
+  }
 }

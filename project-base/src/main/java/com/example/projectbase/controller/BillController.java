@@ -16,11 +16,11 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RestApiV1
 public class BillController {
-//    private final BillDetailService billDetailService;
-//
-//    @Operation(summary = "API get bill info")
-//    @GetMapping(UrlConstant.Bill.GET_BILL_INFO)
-//    public ResponseEntity<?> getBillInfo(@Valid @PathVariable int customerId) {
-//        return VsResponseUtil.success(billDetailService.getBillInfo(customerId));
-//    }
+    private final BillDetailService billDetailService;
+
+    @Operation(summary = "API get all bill")
+    @GetMapping(UrlConstant.Bill.BILLS)
+    public ResponseEntity<?> getAllBill() {
+        return VsResponseUtil.success(billDetailService.getAllBill());
+    }
 }

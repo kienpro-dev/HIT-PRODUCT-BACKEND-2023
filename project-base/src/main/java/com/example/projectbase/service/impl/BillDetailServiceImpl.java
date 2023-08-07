@@ -1,24 +1,25 @@
 package com.example.projectbase.service.impl;
 
 import com.example.projectbase.constant.ErrorMessage;
+import com.example.projectbase.constant.SuccessMessage;
+import com.example.projectbase.domain.dto.AddressDto;
 import com.example.projectbase.domain.dto.BillDetailDto;
-import com.example.projectbase.domain.dto.CartDetailDto;
 import com.example.projectbase.domain.dto.response.BillResponseDto;
 import com.example.projectbase.domain.dto.response.CartResponseDto;
 import com.example.projectbase.domain.dto.response.CommonResponseDto;
 import com.example.projectbase.domain.entity.*;
 import com.example.projectbase.domain.mapper.BillDetailMapper;
-import com.example.projectbase.domain.mapper.BillMapper;
 import com.example.projectbase.exception.NotFoundException;
-import com.example.projectbase.repository.BillDetailRepository;
-import com.example.projectbase.repository.BillRepository;
-import com.example.projectbase.repository.CartDetailRepository;
-import com.example.projectbase.repository.CustomerRepository;
+import com.example.projectbase.repository.*;
+import com.example.projectbase.service.AddressService;
 import com.example.projectbase.service.BillDetailService;
-import com.example.projectbase.service.BillService;
+import com.example.projectbase.util.AddressUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,10 +34,12 @@ public class BillDetailServiceImpl implements BillDetailService {
 
     private final BillDetailRepository billDetailRepository;
 
+    private final ShopRepository shopRepository;
+
     private final BillDetailMapper billDetailMapper;
 
     @Override
-    public BillResponseDto getBillInfo(int customerId) {
+    public List<BillResponseDto> getBillInfo(int customerId) {
         Optional<Customer> customer = Optional.ofNullable(customerRepository.findById(customerId).orElseThrow(() -> new NotFoundException(ErrorMessage.Customer.ERR_NOT_FOUND_ID, new String[]{String.valueOf(customerId)})));
 
         Address addressCustomer = customer.get().getAddress();
@@ -50,10 +53,30 @@ public class BillDetailServiceImpl implements BillDetailService {
         bill.setCustomer(customer.get());
         bill.setAddress(addressCustomer.getAddressName());
 
+        List<AddressDto> locations = new ArrayList<>();
+
+        double totalPrice = 0;
+
         for (CartResponseDto c : cartResponseDto) {
-            BillDetailDto billDetailDto = new BillDetailDto(c.getProductId(), bill.getId(), c.getQuantity());
-            billDetailRepository.save(billDetailMapper.toBillDetail(billDetailDto));
+            totalPrice += c.getPrice() * c.getQuantity();
+
+            locations.add(shopRepository.findLocationShop(c.getShopName()));
         }
+
+        double distance = 0;
+        AddressDto addressCustomerDto = new AddressDto(addressCustomer.getLatitude(), addressCustomer.getLongitude(), "");
+        for(AddressDto a : locations) {
+            distance += AddressUtil.calculateDistance(addressCustomerDto, a);
+        }
+
+        double feeShip = (distance < 2 ? 25000 : (distance < 5 ? 30000 : (distance < 10 ? 30000 : distance * 4000)));
+
+        Date timeShip = new Date(System.currentTimeMillis() + (long) (distance / 30 * 60 * 60 * 1000) + 900000);
+
+        bill.setDistance(distance);
+        bill.setFeeShip(feeShip);
+        bill.setTimeShip(timeShip);
+        bill.setPayment(feeShip + totalPrice);
 
         billRepository.save(bill);
 
@@ -61,7 +84,23 @@ public class BillDetailServiceImpl implements BillDetailService {
     }
 
     @Override
-    public CommonResponseDto buy(int billId) {
-        return null;
+    public CommonResponseDto buy(int billId, int customerId) {
+        Optional<Customer> customer = Optional.ofNullable(customerRepository.findById(customerId).orElseThrow(() -> new NotFoundException(ErrorMessage.Customer.ERR_NOT_FOUND_ID, new String[]{String.valueOf(customerId)})));
+
+        Optional<Bill> bill = billRepository.findByCustomerIdAndBillId(customerId, billId);
+
+        Cart cart = customer.get().getCart();
+
+        List<CartResponseDto> cartResponseDto = cartDetailRepository.findCartDetail(cart.getId());
+
+        for (CartResponseDto c : cartResponseDto) {
+            billDetailRepository.save(billDetailMapper.toBillDetail(new BillDetailDto(c.getProductId(), billId, c.getQuantity())));
+        }
+        return new CommonResponseDto(true, SuccessMessage.BUY_PRODUCT);
+    }
+
+    @Override
+    public List<BillDetail> getAllBill() {
+        return billDetailRepository.findAll();
     }
 }
