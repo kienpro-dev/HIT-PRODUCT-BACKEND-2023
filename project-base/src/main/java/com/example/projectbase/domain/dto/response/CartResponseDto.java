@@ -5,20 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartResponseDto {
+public class CartResponseDto extends ProductCartDto {
     private int cartId;
 
-    private int productId;
-
-    private String productName;
-
-    private String productImageUrl;
-
-    private int quantity;
-
-    private int price;
+    public CartResponseDto(int cartId, int productId, String productName, String productImageUrl, int quantity, int price) {
+        super(productId, productName, productImageUrl, quantity, price);
+        this.cartId = cartId;
+    }
 }

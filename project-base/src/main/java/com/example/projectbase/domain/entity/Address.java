@@ -32,5 +32,5 @@ public class Address extends DateAuditing {
 
     @JsonIgnore
     @OneToOne(mappedBy = "address",cascade = CascadeType.MERGE)
-    private Bill bill;
+    private Customer customer;
 }

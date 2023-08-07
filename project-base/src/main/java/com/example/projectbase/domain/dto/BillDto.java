@@ -26,10 +26,12 @@ public class BillDto {
     @Pattern(regexp = "^(?:\\+84|0)(?:1[2689]|9[0-9]|3[2-9]|5[6-9]|7[0-9])(?:\\d{7}|\\d{8})$")
     private String phoneNumber;
 
-
     private String timeShip;
 
-    @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
+    private double feeShip;
+
+    private double distance;
+
     private String address;
 
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)

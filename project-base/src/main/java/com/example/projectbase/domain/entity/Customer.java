@@ -26,8 +26,6 @@ public class Customer extends DateAuditing {
     @Column(nullable = false)
     private String fullName;
 
-    private String address;
-
     private Date dob;
 
     private String phoneNumber;
@@ -47,5 +45,9 @@ public class Customer extends DateAuditing {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<VoucherDetail> voucherDetails = new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "address_id", foreignKey = @ForeignKey(name="FK_CUSTOMER_ADDRESS"))
+    private Address address;
 
 }
