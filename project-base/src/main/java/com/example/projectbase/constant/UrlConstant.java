@@ -104,6 +104,7 @@ public class UrlConstant {
     public static class Bill {
         private static final String PRE_FIX = "/bill";
 
+        public static final String BILLS = PRE_FIX;
         public static final String GET_BILL_INFO = PRE_FIX + "/{customerId}";
         private Bill() {
         }

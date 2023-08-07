@@ -98,4 +98,9 @@ public class BillDetailServiceImpl implements BillDetailService {
         }
         return new CommonResponseDto(true, SuccessMessage.BUY_PRODUCT);
     }
+
+    @Override
+    public List<BillDetail> getAllBill() {
+        return billDetailRepository.findAll();
+    }
 }
