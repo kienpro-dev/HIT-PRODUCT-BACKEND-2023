@@ -35,10 +35,12 @@ public class Category extends DateAuditing {
             inverseJoinColumns = @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "FK_CATEGORY_PRODUCT2")))
     private List<Product> products = new ArrayList<>();
 
+
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "category_shop",
             joinColumns = @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "FK_CATEGORY_SHOP1")),
             inverseJoinColumns = @JoinColumn(name = "shop_id", foreignKey = @ForeignKey(name = "FK_CATEGORY_SHOP2")))
     private List<Shop> shops = new ArrayList<>();
+
 }
