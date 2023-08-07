@@ -56,6 +56,7 @@ public class ProductServiceImpl implements ProductService {
 
         Optional<Category> category = Optional.ofNullable(categoryRepository.findById(categoryId).orElseThrow(() -> new NotFoundException(ErrorMessage.Category.ERR_NOT_FOUND_ID, new String[]{String.valueOf(categoryId)})));
         List<Category> categories=new ArrayList<>();
+        category.get().getProducts().add(product);
         categories.add(category.get());
         product.setCategories(categories);
 
