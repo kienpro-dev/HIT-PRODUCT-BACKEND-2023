@@ -55,6 +55,7 @@ public class ProductServiceImpl implements ProductService {
         product.setCategories(categories);
 
 
+
         Optional<Shop> shop = Optional.ofNullable(shopRepository.findById(shopId).orElseThrow(() -> new NotFoundException(ErrorMessage.Shop.ERR_NOT_FOUND_ID, new String[]{String.valueOf(shopId)})));
         ShopProductDetail shopProductDetail = new ShopProductDetail();
         shopProductDetail.setShop(shop.get());

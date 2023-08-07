@@ -15,9 +15,6 @@ import java.util.Optional;
 
 @Repository
 public interface ShopRepository extends JpaRepository<Shop, Integer> {
-
-
-
     @Query("SELECT new com.example.projectbase.domain.dto.response.ShopResponseDto(s.id,s.name,a.addressName,s.hotline,s.timeClose,s.timeOpen) FROM Shop s INNER JOIN s.address a WHERE s.id = ?1")
     Optional<ShopResponseDto> findShopById(int id);
 
