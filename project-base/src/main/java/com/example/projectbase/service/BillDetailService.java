@@ -10,5 +10,5 @@ import java.util.List;
 public interface BillDetailService {
     List<BillResponseDto> getBillInfo(int customerId);
 
-    CommonResponseDto buy(int billId);
+    CommonResponseDto buy(int billId, int customerId);
 }
