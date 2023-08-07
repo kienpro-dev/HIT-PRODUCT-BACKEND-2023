@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -43,8 +44,8 @@ public class ProductController {
     }
 
     @Operation(summary = "API update product")
-    @PutMapping(UrlConstant.Product.UPDATE_PRODUCT)
-    public ResponseEntity<?> updateProduct(@PathVariable int productId, @Valid @RequestBody ProductDto productDto) {
+    @PutMapping(value = UrlConstant.Product.UPDATE_PRODUCT, consumes = "multipart/form-data")
+    public ResponseEntity<?> updateProduct(@PathVariable int productId, @Valid @ModelAttribute ProductDto productDto) {
         return VsResponseUtil.success(productService.updateProduct(productId, productDto));
     }
 

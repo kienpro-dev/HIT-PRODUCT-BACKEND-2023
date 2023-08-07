@@ -20,5 +20,5 @@ public interface UserService {
 
   PaginationResponseDto<FindProductResponseDto> getInfo(PaginationFullRequestDto request);
 
-  FindProductResponseDto getProductDetail(int productId);
+  FindProductResponseDto getProductDetail(int productId, int shopId);
 }

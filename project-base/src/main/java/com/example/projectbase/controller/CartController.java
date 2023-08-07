@@ -8,10 +8,7 @@ import com.example.projectbase.service.CartDetailService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -30,5 +27,17 @@ public class CartController {
     @GetMapping(UrlConstant.Cart.GET_CART_INFO)
     public ResponseEntity<?> getCartInfo(@Valid @PathVariable int cartId) {
         return VsResponseUtil.success(cartDetailService.getCartInfo(cartId));
+    }
+
+    @Operation(summary = "API update cart info")
+    @PutMapping(UrlConstant.Cart.UPDATE_CART_INFO)
+    public ResponseEntity<?> updateCartInfo(@Valid @PathVariable int cartId, @PathVariable int productId, @RequestParam int quantity) {
+        return VsResponseUtil.success(cartDetailService.updateCartInfo(new CartDetailDto(productId, cartId, quantity)));
+    }
+
+    @Operation(summary = "API delete cart info")
+    @DeleteMapping(UrlConstant.Cart.DELETE_CART_INFO)
+    public ResponseEntity<?> deleteCartInfo(@Valid @PathVariable int cartId) {
+        return VsResponseUtil.success(cartDetailService.deleteCartInfo(cartId));
     }
 }

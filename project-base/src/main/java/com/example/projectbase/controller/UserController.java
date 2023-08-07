@@ -59,8 +59,8 @@ public class UserController {
 
   @Operation(summary = "API get product detail")
   @GetMapping(UrlConstant.User.GET_PRODUCT_DETAIL)
-  public ResponseEntity<?> getInformation(@Valid @PathVariable int productId) {
-    return VsResponseUtil.success(userService.getProductDetail(productId));
+  public ResponseEntity<?> getInformation(@Valid @PathVariable int productId, @PathVariable int shopId) {
+    return VsResponseUtil.success(userService.getProductDetail(productId, shopId));
   }
 
 }
