@@ -1,5 +1,6 @@
 package com.example.projectbase.repository;
 
+import com.example.projectbase.domain.dto.AddressDto;
 import com.example.projectbase.domain.dto.response.ShopResponseDto;
 import com.example.projectbase.domain.entity.Shop;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,9 @@ import java.util.Optional;
 public interface ShopRepository extends JpaRepository<Shop, Integer> {
     @Query("SELECT new com.example.projectbase.domain.dto.response.ShopResponseDto(s.id,s.name,a.addressName,s.hotline,s.timeClose,s.timeOpen) FROM Shop s INNER JOIN s.address a WHERE s.id = ?1")
     Optional<ShopResponseDto> findShopById(int id);
+
+    @Query("SELECT new com.example.projectbase.domain.dto.AddressDto(a.latitude, a.longitude, a.addressName) FROM Shop s INNER JOIN s.address a WHERE s.name = ?1")
+    AddressDto findLocationShop(String name);
 
     @Transactional
     @Modifying
