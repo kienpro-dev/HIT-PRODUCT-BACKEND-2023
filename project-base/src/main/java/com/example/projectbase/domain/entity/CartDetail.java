@@ -32,6 +32,10 @@ public class CartDetail implements Serializable {
     @Column(nullable = false)
     private int quantity;
 
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "cartDetail")
-    List<ShopProductDetail> shopProductDetail;
+//    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "cartDetail")
+//    List<ShopProductDetail> shopProductDetail;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "shop_product_detail_id", foreignKey = @ForeignKey(name = "FK_SHOP_PRODUCT_DETAIl_CART_DETAIL"), referencedColumnName = "shop_product_detail_id")
+    private ShopProductDetail shopProductDetail;
 }

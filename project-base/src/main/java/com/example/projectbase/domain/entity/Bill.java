@@ -23,7 +23,7 @@ public class Bill extends DateAuditing {
 
 
     @Column(nullable = false)
-    private int payment;
+    private double payment;
 
     //ten nguoi nhan
     @Column(nullable = false)
@@ -46,6 +46,7 @@ public class Bill extends DateAuditing {
     private String address;
 
     @OneToMany(mappedBy = "bill",cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<BillDetail> billDetail;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)

@@ -27,8 +27,8 @@ public class BillResponseDto extends ProductCartDto {
 
     private double feeShip;
 
-    public BillResponseDto(int billId, String nameCustomer, String address, String phoneNumber, Date timeShip, double distance, double feeShip, int productId, String productName, String productImageUrl, int quantity, int price) {
-        super(productId, productName, productImageUrl, quantity, price);
+    public BillResponseDto(int billId, String nameCustomer, String address, String phoneNumber, Date timeShip, double distance, double feeShip, int productId, String shopName, String shopAddress,String productName, String productImageUrl, int quantity, int price) {
+        super(productId, shopName, shopAddress, productName, productImageUrl, quantity, price);
         this.billId = billId;
         this.nameCustomer = nameCustomer;
         this.address = address;

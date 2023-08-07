@@ -16,11 +16,11 @@ import javax.validation.constraints.Size;
 public class AddressDto {
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     @Size(min = -90, max = 90, message = ErrorMessage.INVALID_COORDINATES)
-    private float latitude;
+    private double latitude;
 
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     @Size(min = -180, max = 180, message = ErrorMessage.INVALID_COORDINATES)
-    private float longitude;
+    private double longitude;
 
     private String addressName;
 }

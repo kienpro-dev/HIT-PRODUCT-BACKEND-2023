@@ -19,8 +19,8 @@ public class CartController {
 
     @Operation(summary = "API add product to cart")
     @PostMapping(UrlConstant.Cart.ADD_PRODUCT_TO_CART)
-    public ResponseEntity<?> addProductToCart(@Valid @PathVariable int cartId, @RequestParam int productId, @RequestParam int quality) {
-        return VsResponseUtil.success(cartDetailService.addProductToCart(new CartDetailDto(productId, cartId, quality)));
+    public ResponseEntity<?> addProductToCart(@Valid @PathVariable int cartId, @RequestParam int productId, @RequestParam int quality, @RequestParam int shopId) {
+        return VsResponseUtil.success(cartDetailService.addProductToCart(new CartDetailDto(productId, 0, cartId, quality), shopId));
     }
 
     @Operation(summary = "API get cart info")
@@ -31,8 +31,8 @@ public class CartController {
 
     @Operation(summary = "API update cart info")
     @PutMapping(UrlConstant.Cart.UPDATE_CART_INFO)
-    public ResponseEntity<?> updateCartInfo(@Valid @PathVariable int cartId, @PathVariable int productId, @RequestParam int quantity) {
-        return VsResponseUtil.success(cartDetailService.updateCartInfo(new CartDetailDto(productId, cartId, quantity)));
+    public ResponseEntity<?> updateCartInfo(@Valid @PathVariable int cartId, @PathVariable int productId, @RequestParam int quantity, @RequestParam int shopId) {
+        return VsResponseUtil.success(cartDetailService.updateCartInfo(new CartDetailDto(productId, 0, cartId, quantity), shopId));
     }
 
     @Operation(summary = "API delete cart info")
