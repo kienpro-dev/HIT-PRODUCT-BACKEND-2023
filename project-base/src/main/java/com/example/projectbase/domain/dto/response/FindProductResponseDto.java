@@ -60,12 +60,14 @@ public class FindProductResponseDto {
         this.shopHotline = shopHotline;
     }
 
-    public FindProductResponseDto(int productId, String productName, String productImageUrl, int productPrice, int productStock, String productDescription) {
+    public FindProductResponseDto(int productId, String productName, String productImageUrl, int productPrice, int productStock, String productDescription,int shopId,String shopName) {
         this.productId=productId;
         this.productName = productName;
         this.productImageUrl = productImageUrl;
         this.productPrice = productPrice;
         this.productStock = productStock;
         this.productDescription = productDescription;
+        this.shopId=shopId;
+        this.shopName=shopName;
     }
 }
