@@ -19,6 +19,12 @@ import javax.validation.Valid;
 public class CategoryController {
     private final CategoryService categoryService;
 
+    @Operation(summary = "API create category")
+    @PostMapping(UrlConstant.Category.CREATE_CATEGORY)
+    public ResponseEntity<?>createCategory(@PathVariable int shopId,@RequestBody CategoryDto categoryDto){
+        return VsResponseUtil.success(categoryService.createCategory(shopId,categoryDto));
+    }
+
     @Operation(summary = "API get category")
     @GetMapping(UrlConstant.Category.GET_CATEGORY)
     public ResponseEntity<?> getCategoryById(@PathVariable int categoryId) {

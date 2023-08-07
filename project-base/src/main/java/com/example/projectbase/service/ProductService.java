@@ -12,7 +12,7 @@ import com.example.projectbase.domain.entity.Product;
 import java.util.List;
 
 public interface ProductService {
-    Product createProduct(ProductDto productDto);
+    Product createProduct(int shopId,int categoryId,ProductDto productDto);
 
     Product updateProduct(int id, ProductDto productDto);
 

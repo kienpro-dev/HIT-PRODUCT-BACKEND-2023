@@ -45,6 +45,7 @@ public class UrlConstant {
     public static class Product {
         private static final String PRE_FIX = "/product";
 
+        public static final String CREATE_PRODUCT=PRE_FIX+"create-product"+"/shop"+"/{shopId}"+"/category"+ "/{categoryId}";
         public static final String GET_PRODUCTS = PRE_FIX;
         public static final String GET_PRODUCT = PRE_FIX + "/{productId}";
         public static final String UPDATE_PRODUCT = PRE_FIX + "/{productId}";
@@ -60,6 +61,7 @@ public class UrlConstant {
     public static class Category {
         private static final String PRE_FIX = "/category";
 
+        public static final String CREATE_CATEGORY=PRE_FIX+"/create-category"+"/{shopId}";
         public static final String GET_CATEGORIES = PRE_FIX;
         public static final String GET_CATEGORY = PRE_FIX + "/{categoryId}";
         public static final String UPDATE_CATEGORY = PRE_FIX + "/{categoryId}";
