@@ -30,5 +30,4 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
     Page<CategoryResponseDto> findCategoryByShop(int id, Pageable pageable);
 
 
-
 }

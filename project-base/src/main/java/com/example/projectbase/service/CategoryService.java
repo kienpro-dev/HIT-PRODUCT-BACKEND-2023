@@ -8,7 +8,7 @@ import com.example.projectbase.domain.dto.response.CategoryResponseDto;
 import com.example.projectbase.domain.entity.Category;
 
 public interface CategoryService {
-    Category createCategory(CategoryDto categoryDto);
+    Category createCategory(int shopId, CategoryDto categoryDto);
 
     Category updateCategory(int id, CategoryDto categoryDto);
 

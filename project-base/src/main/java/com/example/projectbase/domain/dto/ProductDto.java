@@ -24,7 +24,7 @@ public class ProductDto {
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     private String name;
 
-    @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
+
     @Min(value = 0)
     private int price;
 
@@ -33,7 +33,7 @@ public class ProductDto {
     @Length(max = 100000)
     private String description;
 
-    @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
+
     private MultipartFile image;
 
     @Max(value = 100)

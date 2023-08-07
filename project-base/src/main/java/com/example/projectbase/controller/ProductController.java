@@ -24,6 +24,13 @@ public class ProductController {
     private final ProductService productService;
 
     private final CategoryRepository categoryRepository;
+
+    @Operation(summary = "API create product")
+    @PostMapping(value=UrlConstant.Product.CREATE_PRODUCT, consumes = "multipart/form-data")
+    public ResponseEntity<?> createProduct(@PathVariable int shopId,@PathVariable int categoryId,@Valid @ModelAttribute ProductDto productDto){
+        return VsResponseUtil.success(productService.createProduct(shopId,categoryId,productDto));
+    }
+
     @Operation(summary = "API get product")
     @GetMapping(UrlConstant.Product.GET_PRODUCT)
     public ResponseEntity<?> getProductById(@PathVariable int productId) {

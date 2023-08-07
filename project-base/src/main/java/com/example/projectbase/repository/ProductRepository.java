@@ -24,13 +24,13 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query("UPDATE Product p SET p.name = ?1, p.price = ?2, p.description = ?3, p.image = ?4, p.discount = ?5, p.stock = ?6, p.lastModifiedDate = CURRENT_TIMESTAMP where p.id = ?7")
     void updateProduct(String name, int price, String description, String image, float discount, int stock, int id);
 
-    @Query(value = "SELECT new com.example.projectbase.domain.dto.response.FindProductResponseDto (p.id, p.name, p.image, p.price, p.stock,p.description) FROM Product p INNER JOIN p.shopProductDetail sp  WHERE sp.shop.id= ?1 ")
+    @Query(value = "SELECT new com.example.projectbase.domain.dto.response.FindProductResponseDto (p.id, p.name, p.image, p.price, p.stock,p.description,sp.shop.id,sp.shop.name) FROM Product p INNER JOIN p.shopProductDetail sp  WHERE sp.shop.id= ?1 ")
     Page<FindProductResponseDto> findProductByShop(int id, Pageable pageable);
 
-    @Query(value = "SELECT new com.example.projectbase.domain.dto.response.FindProductResponseDto (p.id, p.name, p.image, p.price, p.stock,p.description) FROM Product p INNER JOIN p.categories sc  WHERE sc.id= ?1 ")
+    @Query(value = "SELECT new com.example.projectbase.domain.dto.response.FindProductResponseDto (p.id, p.name, p.image, p.price, p.stock,p.description,sp.shop.id,sp.shop.name) FROM Product p INNER JOIN p.categories sc  INNER  JOIN p.shopProductDetail sp WHERE sc.id= ?1 ")
     Page<FindProductResponseDto> findProductByCategory(int id, Pageable pageable);
 
 
-    @Query("SELECT new com.example.projectbase.domain.dto.response.FindProductResponseDto (p.id, p.name, p.image, p.price, p.stock,p.description) FROM Product p INNER JOIN p.shopProductDetail sp INNER JOIN sp.shop s INNER JOIN p.categories c WHERE s.id=?1 AND c.id=?2")
+    @Query("SELECT new com.example.projectbase.domain.dto.response.FindProductResponseDto (p.id, p.name, p.image, p.price, p.stock,p.description,s.id,s.name) FROM Product p INNER JOIN p.shopProductDetail sp INNER JOIN sp.shop s INNER JOIN p.categories c WHERE s.id=?1 AND c.id=?2")
     Page<FindProductResponseDto> findProductByCategoryShop(int shopId, int categoryId,Pageable pageable);
 }
