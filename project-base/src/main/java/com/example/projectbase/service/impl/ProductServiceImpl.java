@@ -9,10 +9,12 @@ import com.example.projectbase.domain.dto.response.FindProductResponseDto;
 import com.example.projectbase.domain.entity.Category;
 import com.example.projectbase.domain.entity.Product;
 import com.example.projectbase.domain.entity.Shop;
+import com.example.projectbase.domain.entity.ShopProductDetail;
 import com.example.projectbase.domain.mapper.ProductMapper;
 import com.example.projectbase.exception.NotFoundException;
 import com.example.projectbase.repository.CategoryRepository;
 import com.example.projectbase.repository.ProductRepository;
+import com.example.projectbase.repository.ShopProductDetailRepository;
 import com.example.projectbase.repository.ShopRepository;
 import com.example.projectbase.service.ProductService;
 import com.example.projectbase.util.PaginationUtil;
@@ -22,6 +24,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,11 +41,28 @@ public class ProductServiceImpl implements ProductService {
 
     private final CategoryRepository categoryRepository;
 
+    private final ShopProductDetailRepository shopProductDetailRepository;
+
     @Override
-    public Product createProduct(ProductDto productDto) {
+    public Product createProduct(int shopId, int categoryId, ProductDto productDto) {
         Product product = productMapper.toProduct(productDto);
-        String url= uploadFileUtil.uploadFile(productDto.getImage());
+        String url = uploadFileUtil.uploadFile(productDto.getImage());
         product.setImage(url);
+
+        Optional<Category> category = Optional.ofNullable(categoryRepository.findById(categoryId).orElseThrow(() -> new NotFoundException(ErrorMessage.Category.ERR_NOT_FOUND_ID, new String[]{String.valueOf(categoryId)})));
+        List<Category> categories=new ArrayList<>();
+        categories.add(category.get());
+        product.setCategories(categories);
+
+
+        Optional<Shop> shop = Optional.ofNullable(shopRepository.findById(shopId).orElseThrow(() -> new NotFoundException(ErrorMessage.Shop.ERR_NOT_FOUND_ID, new String[]{String.valueOf(shopId)})));
+        ShopProductDetail shopProductDetail = new ShopProductDetail();
+        shopProductDetail.setShop(shop.get());
+        productRepository.save(product);
+        shopProductDetail.setProduct(product);
+
+        shopProductDetailRepository.save(shopProductDetail);
+
         return productRepository.save(product);
     }
 
@@ -87,11 +107,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public PaginationResponseDto<FindProductResponseDto> findProductsByShop(int id, PaginationSortRequestDto request) {
-        Optional<Shop> shop = Optional.ofNullable(shopRepository.findById(id).orElseThrow(()->new NotFoundException(ErrorMessage.Shop.ERR_NOT_FOUND_ID,new String[]{String.valueOf(id)})));
+        Optional<Shop> shop = Optional.ofNullable(shopRepository.findById(id).orElseThrow(() -> new NotFoundException(ErrorMessage.Shop.ERR_NOT_FOUND_ID, new String[]{String.valueOf(id)})));
 
         Pageable pageable = PaginationUtil.buildPageable(request, SortByDataConstant.PRODUCT);
 
-        Page<FindProductResponseDto> page = productRepository.findProductByShop(id,pageable);
+        Page<FindProductResponseDto> page = productRepository.findProductByShop(id, pageable);
 
         PaginationResponseDto<FindProductResponseDto> responseDto = new PaginationResponseDto<>();
         responseDto.setItems(page.getContent());
@@ -104,11 +124,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public PaginationResponseDto<FindProductResponseDto> findProductsByCategory(int id, PaginationSortRequestDto request) {
-        Optional<Category> category = Optional.ofNullable(categoryRepository.findById(id).orElseThrow(()->new NotFoundException(ErrorMessage.Category.ERR_NOT_FOUND_ID,new String[]{String.valueOf(id)})));
+        Optional<Category> category = Optional.ofNullable(categoryRepository.findById(id).orElseThrow(() -> new NotFoundException(ErrorMessage.Category.ERR_NOT_FOUND_ID, new String[]{String.valueOf(id)})));
 
         Pageable pageable = PaginationUtil.buildPageable(request, SortByDataConstant.PRODUCT);
 
-        Page<FindProductResponseDto> page = productRepository.findProductByCategory(id,pageable);
+        Page<FindProductResponseDto> page = productRepository.findProductByCategory(id, pageable);
 
         PaginationResponseDto<FindProductResponseDto> responseDto = new PaginationResponseDto<>();
         responseDto.setItems(page.getContent());
@@ -119,12 +139,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public PaginationResponseDto<FindProductResponseDto> findProductsByCategoryShop(int shopId,int categoryId, PaginationRequestDto request) {
-        Optional<Shop> shop = Optional.ofNullable(shopRepository.findById(shopId).orElseThrow(()->new NotFoundException(ErrorMessage.Shop.ERR_NOT_FOUND_ID,new String[]{String.valueOf(shopId)})));
+    public PaginationResponseDto<FindProductResponseDto> findProductsByCategoryShop(int shopId, int categoryId, PaginationRequestDto request) {
+        Optional<Shop> shop = Optional.ofNullable(shopRepository.findById(shopId).orElseThrow(() -> new NotFoundException(ErrorMessage.Shop.ERR_NOT_FOUND_ID, new String[]{String.valueOf(shopId)})));
 
         Pageable pageable = PaginationUtil.buildPageable(request);
 
-        Page<FindProductResponseDto> page = productRepository.findProductByCategoryShop(shopId,categoryId,pageable);
+        Page<FindProductResponseDto> page = productRepository.findProductByCategoryShop(shopId, categoryId, pageable);
 
         PaginationResponseDto<FindProductResponseDto> responseDto = new PaginationResponseDto<>();
         responseDto.setItems(page.getContent());

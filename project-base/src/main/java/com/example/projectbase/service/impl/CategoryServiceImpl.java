@@ -20,6 +20,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,8 +34,12 @@ public class CategoryServiceImpl implements CategoryService {
     private final ShopRepository shopRepository;
 
     @Override
-    public Category createCategory(CategoryDto categoryDto) {
+    public Category createCategory(int shopId, CategoryDto categoryDto) {
+        List<Shop> shops = new ArrayList<>();
         Category category = categoryMapper.toCategory(categoryDto);
+        Optional<Shop> shop = Optional.ofNullable(shopRepository.findById(shopId).orElseThrow(() -> new NotFoundException(ErrorMessage.Shop.ERR_NOT_FOUND_ID, new String[]{String.valueOf(shopId)})));
+        shops.add(shop.get());
+        category.setShops(shops);
         return categoryRepository.save(category);
     }
 
