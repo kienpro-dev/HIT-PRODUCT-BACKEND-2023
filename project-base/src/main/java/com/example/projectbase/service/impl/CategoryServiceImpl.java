@@ -17,6 +17,7 @@ import com.example.projectbase.repository.CategoryRepository;
 import com.example.projectbase.repository.ShopRepository;
 import com.example.projectbase.service.CategoryService;
 import com.example.projectbase.util.PaginationUtil;
+import com.example.projectbase.util.UploadFileUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,10 +36,15 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final ShopRepository shopRepository;
 
+    private final UploadFileUtil uploadFileUtil;
+
     @Override
     public Category createCategory(int shopId, CategoryDto categoryDto) {
         List<Shop> shops = new ArrayList<>();
         Category category = categoryMapper.toCategory(categoryDto);
+        String url = uploadFileUtil.uploadFile(categoryDto.getImage());
+        category.setImage(url);
+
         Optional<Shop> shop = Optional.ofNullable(shopRepository.findById(shopId).orElseThrow(() -> new NotFoundException(ErrorMessage.Shop.ERR_NOT_FOUND_ID, new String[]{String.valueOf(shopId)})));
         shops.add(shop.get());
         category.setShops(shops);

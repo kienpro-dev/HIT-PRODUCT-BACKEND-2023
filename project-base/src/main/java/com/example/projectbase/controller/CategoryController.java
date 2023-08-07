@@ -20,8 +20,8 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @Operation(summary = "API create category")
-    @PostMapping(UrlConstant.Category.CREATE_CATEGORY)
-    public ResponseEntity<?>createCategory(@PathVariable int shopId,@RequestBody CategoryDto categoryDto){
+    @PostMapping(value=UrlConstant.Category.CREATE_CATEGORY, consumes = "multipart/form-data")
+    public ResponseEntity<?>createCategory(@PathVariable int shopId,@Valid @ModelAttribute CategoryDto categoryDto){
         return VsResponseUtil.success(categoryService.createCategory(shopId,categoryDto));
     }
 
@@ -38,8 +38,8 @@ public class CategoryController {
     }
 
     @Operation(summary = "API update category")
-    @PutMapping(UrlConstant.Category.UPDATE_CATEGORY)
-    public ResponseEntity<?> updateCategory(@PathVariable int categoryId, @Valid @RequestBody CategoryDto categoryDto) {
+    @PutMapping(value=UrlConstant.Category.UPDATE_CATEGORY,consumes = "multipart/form-data")
+    public ResponseEntity<?> updateCategory(@PathVariable int categoryId, @Valid @ModelAttribute CategoryDto categoryDto) {
         return VsResponseUtil.success(categoryService.updateCategory(categoryId, categoryDto));
     }
 
