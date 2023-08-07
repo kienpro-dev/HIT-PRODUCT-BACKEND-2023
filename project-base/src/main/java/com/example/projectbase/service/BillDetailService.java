@@ -5,8 +5,10 @@ import com.example.projectbase.domain.dto.response.BillResponseDto;
 import com.example.projectbase.domain.dto.response.CartResponseDto;
 import com.example.projectbase.domain.dto.response.CommonResponseDto;
 
+import java.util.List;
+
 public interface BillDetailService {
-    BillResponseDto getBillInfo(int customerId);
+    List<BillResponseDto> getBillInfo(int customerId);
 
     CommonResponseDto buy(int billId);
 }

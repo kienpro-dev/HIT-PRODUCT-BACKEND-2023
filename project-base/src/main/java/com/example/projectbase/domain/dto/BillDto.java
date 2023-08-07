@@ -17,7 +17,7 @@ import java.util.Date;
 public class BillDto {
 
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
-    private int payment;
+    private double payment;
 
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     private String nameCustomer;

@@ -23,7 +23,7 @@ public class Bill extends DateAuditing {
 
 
     @Column(nullable = false)
-    private int payment;
+    private double payment;
 
     //ten nguoi nhan
     @Column(nullable = false)
