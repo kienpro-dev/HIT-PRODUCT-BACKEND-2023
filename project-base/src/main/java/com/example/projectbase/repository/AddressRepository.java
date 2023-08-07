@@ -9,9 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface AddressRepository extends JpaRepository<Address, Integer> {
-    Address findByLatitudeAndLongitude(float latitude, float longitude);
-
-    boolean existsByLatitudeAndLongitude(float latitude, float longitude);
+    @Query("SELECT a FROM Address a WHERE a.latitude = ?1 AND a.longitude = ?2")
+    Address findByLatitudeAndLongitude(double latitude, double longitude);
 
     @Transactional
     @Modifying

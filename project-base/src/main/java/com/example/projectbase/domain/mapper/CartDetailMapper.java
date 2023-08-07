@@ -11,7 +11,8 @@ public interface CartDetailMapper {
     @Mappings({
             @Mapping(source = "productId", target = "product.id"),
             @Mapping(source = "cartId", target = "cart.id"),
-            @Mapping(source = "quantity", target = "quantity")
+            @Mapping(source = "quantity", target = "quantity"),
+            @Mapping(source = "shopProductId", target = "shopProductDetail.id")
     })
     CartDetail toCartDetail(CartDetailDto cartDetailDto);
 }

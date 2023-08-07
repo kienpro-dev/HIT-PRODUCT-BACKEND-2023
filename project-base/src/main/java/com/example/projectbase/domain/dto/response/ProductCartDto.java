@@ -12,6 +12,10 @@ import lombok.Setter;
 public class ProductCartDto {
     private int productId;
 
+    private String shopName;
+
+    private String shopAddress;
+
     private String productName;
 
     private String productImageUrl;

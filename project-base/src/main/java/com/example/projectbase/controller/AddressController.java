@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -21,7 +22,7 @@ public class AddressController {
 
     @Operation(summary = "API save location customer")
     @PostMapping(UrlConstant.Address.SAVE_LOCATION_CUSTOMER)
-    public ResponseEntity<?> saveLocationCustomer(@Valid @PathVariable int customerId, @RequestBody AddressDto addressDto) {
-        return VsResponseUtil.success(addressService.saveLocationCustomer(customerId, addressDto));
+    public ResponseEntity<?> saveLocationCustomer(@Valid @PathVariable int customerId, @RequestParam float latitude, @RequestParam float longitude) {
+        return VsResponseUtil.success(addressService.saveLocationCustomer(customerId, new AddressDto(latitude, longitude, "")));
     }
 }

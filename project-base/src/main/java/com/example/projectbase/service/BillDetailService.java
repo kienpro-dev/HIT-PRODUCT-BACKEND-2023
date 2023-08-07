@@ -4,9 +4,14 @@ import com.example.projectbase.domain.dto.CartDetailDto;
 import com.example.projectbase.domain.dto.response.BillResponseDto;
 import com.example.projectbase.domain.dto.response.CartResponseDto;
 import com.example.projectbase.domain.dto.response.CommonResponseDto;
+import com.example.projectbase.domain.entity.BillDetail;
+
+import java.util.List;
 
 public interface BillDetailService {
-    BillResponseDto getBillInfo(int customerId);
+    List<BillResponseDto> getBillInfo(int customerId);
 
-    CommonResponseDto buy(int billId);
+    CommonResponseDto buy(int billId, int customerId);
+
+    List<BillDetail> getAllBill();
 }
