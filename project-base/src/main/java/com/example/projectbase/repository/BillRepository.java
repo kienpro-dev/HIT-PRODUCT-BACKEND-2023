@@ -18,4 +18,9 @@ public interface BillRepository extends JpaRepository<Bill,Integer> {
 
     @Query("SELECT b FROM Bill b WHERE b.id = ?2 AND b.customer.id = ?1")
     Optional<Bill> findByCustomerIdAndBillId(int customerId, int billId);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Bill b SET b.status = ?2 WHERE b.id = ?1")
+    void cancelledBill(int id,String status);
 }

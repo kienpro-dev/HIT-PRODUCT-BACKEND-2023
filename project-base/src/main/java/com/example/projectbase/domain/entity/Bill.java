@@ -45,6 +45,9 @@ public class Bill extends DateAuditing {
     @Column(nullable = false)
     private String address;
 
+    @Column(nullable = false)
+    private String status;
+
     @OneToMany(mappedBy = "bill",cascade = CascadeType.ALL)
     @JsonIgnore
     private List<BillDetail> billDetail;
