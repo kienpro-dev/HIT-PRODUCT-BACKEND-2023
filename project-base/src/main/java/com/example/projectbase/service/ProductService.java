@@ -27,4 +27,8 @@ public interface ProductService {
     PaginationResponseDto<FindProductResponseDto> findProductsByCategory(int id, PaginationSortRequestDto request);
 
     PaginationResponseDto<FindProductResponseDto> findProductsByCategoryShop(int shopId,int categoryId, PaginationRequestDto request);
+
+    PaginationResponseDto<FindProductResponseDto> getInfo(PaginationFullRequestDto request);
+
+    FindProductResponseDto getProductDetail(int productId, int shopId);
 }

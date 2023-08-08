@@ -53,7 +53,7 @@ public class CustomerController {
     }
 
     @Operation(summary = "API buy")
-    @GetMapping(UrlConstant.Customer.BUY)
+    @PostMapping(UrlConstant.Customer.BUY)
     public ResponseEntity<?> buy(@Valid @PathVariable int customerId, @PathVariable int billId) {
         return VsResponseUtil.success(billDetailService.buy(billId, customerId));
     }

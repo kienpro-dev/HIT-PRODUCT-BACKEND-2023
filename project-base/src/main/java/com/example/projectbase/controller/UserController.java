@@ -51,16 +51,4 @@ public class UserController {
     return VsResponseUtil.success(userService.getUsers(requestDTO));
   }
 
-  @Operation(summary = "API find product info")
-  @GetMapping(UrlConstant.User.FIND_PRODUCT_INFO)
-  public ResponseEntity<?> getInformation(@Valid @ParameterObject PaginationFullRequestDto requestDTO) {
-    return VsResponseUtil.success(userService.getInfo(requestDTO));
-  }
-
-  @Operation(summary = "API get product detail")
-  @GetMapping(UrlConstant.User.GET_PRODUCT_DETAIL)
-  public ResponseEntity<?> getInformation(@Valid @PathVariable int productId, @PathVariable int shopId) {
-    return VsResponseUtil.success(userService.getProductDetail(productId, shopId));
-  }
-
 }

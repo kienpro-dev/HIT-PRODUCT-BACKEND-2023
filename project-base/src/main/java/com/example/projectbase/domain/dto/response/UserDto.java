@@ -17,6 +17,8 @@ public class UserDto extends DateAuditingDto {
 
   private String id;
 
+  private int customerId;
+
   @Pattern(regexp = "^[a-z][a-z0-9]{3,15}$", message = ErrorMessage.INVALID_FORMAT_USERNAME)
   private String username;
 

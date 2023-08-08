@@ -161,5 +161,24 @@ public class ProductServiceImpl implements ProductService {
         return responseDto;
     }
 
+    @Override
+    public PaginationResponseDto<FindProductResponseDto> getInfo(PaginationFullRequestDto request) {
+        Pageable pageable = PaginationUtil.buildPageable(request, SortByDataConstant.PRODUCT);
+
+        Page<FindProductResponseDto> page = productRepository.find(request.getKeyword(), pageable);
+
+        PaginationResponseDto<FindProductResponseDto> responseDto = new PaginationResponseDto<>();
+        responseDto.setItems(page.getContent());
+
+        PagingMeta pagingMeta = new PagingMeta(page.getTotalElements(), page.getTotalPages(), page.getNumber(), page.getSize(), request.getSortBy(), request.getIsAscending().toString());
+        responseDto.setMeta(pagingMeta);
+        return responseDto;
+    }
+
+    @Override
+    public FindProductResponseDto getProductDetail(int productId, int shopId) {
+        return productRepository.findProductDetail(productId, shopId).orElseThrow(() -> new NotFoundException(ErrorMessage.ShopProduct.ERR_NOT_FOUND, new String[]{String.valueOf(productId)}));
+    }
+
 
 }
