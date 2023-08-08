@@ -68,4 +68,8 @@ public class ErrorMessage {
   public static class Bill{
     public static final String ERR_NOT_ALLOW_CANCEL="exception.order.not.allow.cancel";
   }
+
+  public static class CartProduct {
+    public static final String ERR_NOT_IN_STOCK="exception.quantity.not.in.stock";
+  }
 }

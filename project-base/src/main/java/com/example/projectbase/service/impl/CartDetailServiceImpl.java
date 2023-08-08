@@ -7,7 +7,7 @@ import com.example.projectbase.domain.dto.response.CartResponseDto;
 import com.example.projectbase.domain.dto.response.CommonResponseDto;
 import com.example.projectbase.domain.entity.*;
 import com.example.projectbase.domain.mapper.CartDetailMapper;
-import com.example.projectbase.exception.InvalidException;
+import com.example.projectbase.exception.InternalServerException;
 import com.example.projectbase.exception.NotFoundException;
 import com.example.projectbase.repository.*;
 import com.example.projectbase.service.CartDetailService;
@@ -38,10 +38,12 @@ public class CartDetailServiceImpl implements CartDetailService {
         Optional<ShopProductDetail> shopProductDetail = Optional.ofNullable(shopProductDetailRepository.findByShopIdAndProductId(cartDetailDto.getProductId(), shopId).orElseThrow(() -> new NotFoundException(ErrorMessage.ShopProduct.ERR_NOT_FOUND)));
 
         if(cartDetail.isPresent()) {
+            checkProductStock(cartDetailDto.getProductId(), cartDetailDto.getQuantity(), cartDetail.get());
             cartDetail.get().setQuantity(cartDetail.get().getQuantity() + cartDetailDto.getQuantity());
 
             cartDetailRepository.updateCartDetail(cartDetail.get().getQuantity(), cartDetailDto.getCartId(), cartDetailDto.getProductId(), shopProductDetail.get().getId());
         } else {
+            checkProductStock(cartDetailDto.getProductId(), cartDetailDto.getQuantity(), null);
             cartDetailDto.setShopProductId(shopProductDetail.get().getId());
             cartDetailRepository.save(cartDetailMapper.toCartDetail(cartDetailDto));
 
@@ -62,6 +64,7 @@ public class CartDetailServiceImpl implements CartDetailService {
         Optional<CartDetail> cartDetail = getCartDetail(cartDetailDto.getCartId(), cartDetailDto.getProductId(), shopId);
 
         if(cartDetail.isPresent()) {
+            checkProductStock(cartDetailDto.getProductId(), cartDetailDto.getQuantity(), null);
             if(cartDetailDto.getQuantity() <= 0) {
                 cartDetailRepository.delete(cartDetail.get());
 
@@ -93,5 +96,17 @@ public class CartDetailServiceImpl implements CartDetailService {
 //        Optional<List<ShopProductDetail>> shopProductDetails = shopProductDetailRepository.findByShop(shop.get());
 
         return cartDetailRepository.findByCartIdAndProductIdAndShopId(cartId, productId, shopId);
+    }
+
+    private void checkProductStock(int productId, int quantity, CartDetail cartDetail) {
+        Optional<Product> product = Optional.ofNullable(productRepository.findById(productId).orElseThrow(() -> new NotFoundException(ErrorMessage.Product.ERR_NOT_FOUND_ID, new String[]{String.valueOf(productId)})));
+
+        if(cartDetail != null) {
+            quantity += cartDetail.getQuantity();
+        }
+
+        if(product.get().getStock() < quantity) {
+            throw new InternalServerException(ErrorMessage.CartProduct.ERR_NOT_IN_STOCK);
+        }
     }
 }

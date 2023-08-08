@@ -34,6 +34,8 @@ public class BillDetailServiceImpl implements BillDetailService {
 
     private final BillDetailRepository billDetailRepository;
 
+    private final ProductRepository productRepository;
+
     private final ShopRepository shopRepository;
 
     private final BillDetailMapper billDetailMapper;
@@ -98,6 +100,10 @@ public class BillDetailServiceImpl implements BillDetailService {
 
         for (CartResponseDto c : cartResponseDto) {
             billDetailRepository.save(billDetailMapper.toBillDetail(new BillDetailDto(c.getProductId(), billId, c.getQuantity())));
+
+            Optional<Product> product = productRepository.findById(c.getProductId());
+
+            productRepository.updateStock(product.get().getId(), product.get().getStock() - c.getQuantity());
         }
 
         return new CommonResponseDto(true, SuccessMessage.BUY_PRODUCT);
