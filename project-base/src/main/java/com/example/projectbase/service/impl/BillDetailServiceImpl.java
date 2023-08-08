@@ -105,6 +105,14 @@ public class BillDetailServiceImpl implements BillDetailService {
 
     @Override
     public List<BillDetail> getAllBill() {
-        return billDetailRepository.findAll();
+        List<BillDetail> bills= billDetailRepository.findAll();
+        Date currentTime = new Date(System.currentTimeMillis());
+        for(BillDetail bd:bills){
+            if(bd.getBill().getTimeShip().compareTo(currentTime)<=0 && bd.getBill().getStatus().compareTo(StatusConstant.TO_RECEIVE)==0){
+                bd.getBill().setStatus(StatusConstant.COMPLETED);
+                billRepository.save(bd.getBill());
+            }
+        }
+        return bills;
     }
 }
