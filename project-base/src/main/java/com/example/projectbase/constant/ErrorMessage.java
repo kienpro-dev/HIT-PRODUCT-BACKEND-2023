@@ -65,4 +65,7 @@ public class ErrorMessage {
   public static class ShopProduct {
     public static final String ERR_NOT_FOUND = "exception.shop.not.found.product";
   }
+  public static class Bill{
+    public static final String ERR_NOT_ALLOW_CANCEL="exception.order.not.allow.cancel";
+  }
 }

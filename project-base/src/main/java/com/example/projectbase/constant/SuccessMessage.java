@@ -1,6 +1,6 @@
 package com.example.projectbase.constant;
 
-public class SuccessMessage {
+public class       SuccessMessage {
     public static final String LOGOUT = "Logout successfully";
     public static final String SEND_PASSWORD = "Send password successfully";
     public static final String CHANGE_PASSWORD = "Change password successfully";
@@ -20,4 +20,8 @@ public class SuccessMessage {
     public static final String UPDATE_PRODUCT_TO_CART = "Update product from cart successfully";
 
     public static final String BUY_PRODUCT = "Buy product from cart successfully";
+
+    public static final String CANCEL_BILL="Cancel order successfully";
+
+
 }

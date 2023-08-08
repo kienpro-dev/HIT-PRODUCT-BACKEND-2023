@@ -1,6 +1,7 @@
 package com.example.projectbase.service.impl;
 
 import com.example.projectbase.constant.ErrorMessage;
+import com.example.projectbase.constant.StatusConstant;
 import com.example.projectbase.constant.SuccessMessage;
 import com.example.projectbase.domain.dto.AddressDto;
 import com.example.projectbase.domain.dto.BillDetailDto;
@@ -11,13 +12,12 @@ import com.example.projectbase.domain.entity.*;
 import com.example.projectbase.domain.mapper.BillDetailMapper;
 import com.example.projectbase.exception.NotFoundException;
 import com.example.projectbase.repository.*;
-import com.example.projectbase.service.AddressService;
 import com.example.projectbase.service.BillDetailService;
 import com.example.projectbase.util.AddressUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -65,7 +65,7 @@ public class BillDetailServiceImpl implements BillDetailService {
 
         double distance = 0;
         AddressDto addressCustomerDto = new AddressDto(addressCustomer.getLatitude(), addressCustomer.getLongitude(), "");
-        for(AddressDto a : locations) {
+        for (AddressDto a : locations) {
             distance += AddressUtil.calculateDistance(addressCustomerDto, a);
         }
 
@@ -77,6 +77,7 @@ public class BillDetailServiceImpl implements BillDetailService {
         bill.setFeeShip(feeShip);
         bill.setTimeShip(timeShip);
         bill.setPayment(feeShip + totalPrice);
+        bill.setStatus(StatusConstant.TO_PAY);
 
         billRepository.save(bill);
 
@@ -89,6 +90,8 @@ public class BillDetailServiceImpl implements BillDetailService {
 
         Optional<Bill> bill = billRepository.findByCustomerIdAndBillId(customerId, billId);
 
+        bill.get().setStatus(StatusConstant.TO_RECEIVE);
+
         Cart cart = customer.get().getCart();
 
         List<CartResponseDto> cartResponseDto = cartDetailRepository.findCartDetail(cart.getId());
@@ -96,6 +99,7 @@ public class BillDetailServiceImpl implements BillDetailService {
         for (CartResponseDto c : cartResponseDto) {
             billDetailRepository.save(billDetailMapper.toBillDetail(new BillDetailDto(c.getProductId(), billId, c.getQuantity())));
         }
+
         return new CommonResponseDto(true, SuccessMessage.BUY_PRODUCT);
     }
 

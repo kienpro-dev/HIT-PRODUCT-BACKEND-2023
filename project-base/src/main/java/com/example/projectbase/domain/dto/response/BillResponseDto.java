@@ -23,11 +23,13 @@ public class BillResponseDto extends ProductCartDto {
 
     private Date timeShip;
 
+    private String status;
+
     private double distance;
 
     private double feeShip;
 
-    public BillResponseDto(int billId, String nameCustomer, String address, String phoneNumber, Date timeShip, double distance, double feeShip, int productId, String shopName, String shopAddress,String productName, String productImageUrl, int quantity, int price) {
+    public BillResponseDto(int billId, String nameCustomer, String address, String phoneNumber, Date timeShip, double distance, double feeShip, int productId, String shopName, String shopAddress,String productName, String productImageUrl, int quantity, int price,String status) {
         super(productId, shopName, shopAddress, productName, productImageUrl, quantity, price);
         this.billId = billId;
         this.nameCustomer = nameCustomer;
@@ -36,5 +38,6 @@ public class BillResponseDto extends ProductCartDto {
         this.timeShip = timeShip;
         this.distance = distance;
         this.feeShip = feeShip;
+        this.status=status;
     }
 }
