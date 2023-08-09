@@ -1,6 +1,8 @@
 package com.example.projectbase.service;
 
 import com.example.projectbase.domain.dto.CartDetailDto;
+import com.example.projectbase.domain.dto.pagination.PaginationFullRequestDto;
+import com.example.projectbase.domain.dto.pagination.PaginationResponseDto;
 import com.example.projectbase.domain.dto.response.BillResponseDto;
 import com.example.projectbase.domain.dto.response.CartResponseDto;
 import com.example.projectbase.domain.dto.response.CommonResponseDto;
@@ -13,5 +15,5 @@ public interface BillDetailService {
 
     CommonResponseDto buy(int billId, int customerId);
 
-    List<BillDetail> getAllBill();
+    PaginationResponseDto<BillDetail> getAllBill(PaginationFullRequestDto requestDto);
 }

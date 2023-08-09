@@ -1,10 +1,14 @@
 package com.example.projectbase.service.impl;
 
 import com.example.projectbase.constant.ErrorMessage;
+import com.example.projectbase.constant.SortByDataConstant;
 import com.example.projectbase.constant.StatusConstant;
 import com.example.projectbase.constant.SuccessMessage;
 import com.example.projectbase.domain.dto.AddressDto;
 import com.example.projectbase.domain.dto.BillDetailDto;
+import com.example.projectbase.domain.dto.pagination.PaginationFullRequestDto;
+import com.example.projectbase.domain.dto.pagination.PaginationResponseDto;
+import com.example.projectbase.domain.dto.pagination.PagingMeta;
 import com.example.projectbase.domain.dto.response.BillResponseDto;
 import com.example.projectbase.domain.dto.response.CartResponseDto;
 import com.example.projectbase.domain.dto.response.CommonResponseDto;
@@ -14,7 +18,10 @@ import com.example.projectbase.exception.NotFoundException;
 import com.example.projectbase.repository.*;
 import com.example.projectbase.service.BillDetailService;
 import com.example.projectbase.util.AddressUtil;
+import com.example.projectbase.util.PaginationUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -110,15 +117,23 @@ public class BillDetailServiceImpl implements BillDetailService {
     }
 
     @Override
-    public List<BillDetail> getAllBill() {
-        List<BillDetail> bills= billDetailRepository.findAll();
+     public PaginationResponseDto<BillDetail> getAllBill(PaginationFullRequestDto requestDto) {
+        Pageable pageable = PaginationUtil.buildPageable(requestDto, SortByDataConstant.BILL);
+
+        Page<BillDetail> bills= billDetailRepository.findAll(pageable);
+
         Date currentTime = new Date(System.currentTimeMillis());
-        for(BillDetail bd:bills){
+        for(BillDetail bd : bills.getContent()){
             if(bd.getBill().getTimeShip().compareTo(currentTime)<=0 && bd.getBill().getStatus().compareTo(StatusConstant.TO_RECEIVE)==0){
                 bd.getBill().setStatus(StatusConstant.COMPLETED);
                 billRepository.save(bd.getBill());
             }
         }
-        return bills;
+        PaginationResponseDto<BillDetail> responseDto = new PaginationResponseDto<>();
+        responseDto.setItems(bills.getContent());
+
+        PagingMeta pagingMeta = new PagingMeta(bills.getTotalElements(), bills.getTotalPages(), bills.getNumber(), bills.getSize(), requestDto.getSortBy(), requestDto.getIsAscending().toString());
+        responseDto.setMeta(pagingMeta);
+        return responseDto;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.projectbase.constant;
 
+import org.springframework.security.core.parameters.P;
+
 public enum SortByDataConstant implements SortByInterface {
 
   USER {
@@ -49,6 +51,16 @@ public enum SortByDataConstant implements SortByInterface {
     @Override
     public String getSortBy(String sortBy) {
       return "name";
+    }
+  },
+
+  BILL {
+    @Override
+    public String getSortBy(String sortBy) {
+      if("payment".equals(sortBy)) {
+        return "bill.payment";
+      }
+      return "quantity";
     }
   }
 
