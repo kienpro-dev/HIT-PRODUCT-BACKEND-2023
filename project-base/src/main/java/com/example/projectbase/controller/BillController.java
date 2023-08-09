@@ -34,4 +34,10 @@ public class BillController {
     public ResponseEntity<?> cancelOrder(@PathVariable int billId){
         return VsResponseUtil.success(billService.cancelOrder(billId));
     }
+
+    @Operation(summary = "API statistic shops")
+    @GetMapping(UrlConstant.Bill.STATISTIC_SHOPS)
+    public ResponseEntity<?> statisticShops(){
+        return VsResponseUtil.success(billDetailService.statisticShops());
+    }
 }

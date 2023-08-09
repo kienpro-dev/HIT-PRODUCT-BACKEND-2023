@@ -6,6 +6,7 @@ import com.example.projectbase.domain.dto.pagination.PaginationResponseDto;
 import com.example.projectbase.domain.dto.response.BillResponseDto;
 import com.example.projectbase.domain.dto.response.CartResponseDto;
 import com.example.projectbase.domain.dto.response.CommonResponseDto;
+import com.example.projectbase.domain.dto.response.StatisticResponseDto;
 import com.example.projectbase.domain.entity.BillDetail;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface BillDetailService {
     CommonResponseDto buy(int billId, int customerId);
 
     PaginationResponseDto<BillDetail> getAllBill(PaginationFullRequestDto requestDto);
+
+    List<StatisticResponseDto> statisticShops();
 }

@@ -12,6 +12,7 @@ import com.example.projectbase.domain.dto.pagination.PagingMeta;
 import com.example.projectbase.domain.dto.response.BillResponseDto;
 import com.example.projectbase.domain.dto.response.CartResponseDto;
 import com.example.projectbase.domain.dto.response.CommonResponseDto;
+import com.example.projectbase.domain.dto.response.StatisticResponseDto;
 import com.example.projectbase.domain.entity.*;
 import com.example.projectbase.domain.mapper.BillDetailMapper;
 import com.example.projectbase.exception.NotFoundException;
@@ -135,5 +136,10 @@ public class BillDetailServiceImpl implements BillDetailService {
         PagingMeta pagingMeta = new PagingMeta(bills.getTotalElements(), bills.getTotalPages(), bills.getNumber(), bills.getSize(), requestDto.getSortBy(), requestDto.getIsAscending().toString());
         responseDto.setMeta(pagingMeta);
         return responseDto;
+    }
+
+    @Override
+    public List<StatisticResponseDto> statisticShops() {
+        return billDetailRepository.statisticShops();
     }
 }
