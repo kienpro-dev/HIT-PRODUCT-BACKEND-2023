@@ -14,8 +14,8 @@ import java.util.List;
 public class CartResponseDto extends ProductCartDto {
     private int cartId;
 
-    public CartResponseDto(int cartId, int productId, String shopName, String shopAddress, String productName, String productImageUrl, int quantity, int price) {
-        super(productId, shopName, shopAddress, productName, productImageUrl, quantity, price);
+    public CartResponseDto(int cartId, int productId, int shopId, String shopName, String shopAddress, String productName, String productImageUrl, int quantity, int price) {
+        super(productId, shopId, shopName, shopAddress, productName, productImageUrl, quantity, price);
         this.cartId = cartId;
     }
 }
