@@ -27,7 +27,7 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, Integer>
     Optional<CartDetail> findByCartIdAndProductId(int cartId, int productId);
 
     @Query("SELECT new com.example.projectbase.domain.dto.response" +
-            ".CartResponseDto(c.id, p.id, s.name, a.addressName ,p.name, p.image, cd.quantity, p.price) " +
+            ".CartResponseDto(c.id, p.id, s.id, s.name, a.addressName ,p.name, p.image, cd.quantity, p.price) " +
             "FROM CartDetail cd INNER JOIN cd.product p INNER JOIN cd.cart c INNER JOIN cd.shopProductDetail spd INNER JOIN spd.shop s INNER JOIN s.address a WHERE c.id = ?1")
     List<CartResponseDto> findCartDetail(int cartId);
 
