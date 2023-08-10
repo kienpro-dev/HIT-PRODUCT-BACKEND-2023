@@ -40,4 +40,10 @@ public class BillController {
     public ResponseEntity<?> statisticShops(){
         return VsResponseUtil.success(billDetailService.statisticShops());
     }
+
+    @Operation(summary = "API statistic shop")
+    @GetMapping(UrlConstant.Bill.STATISTIC_SHOP)
+    public ResponseEntity<?> statisticShop(@PathVariable int shopId){
+        return VsResponseUtil.success(billDetailService.statisticShop(shopId));
+    }
 }

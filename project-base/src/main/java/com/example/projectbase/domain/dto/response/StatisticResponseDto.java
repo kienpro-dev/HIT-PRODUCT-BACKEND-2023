@@ -17,4 +17,10 @@ public class StatisticResponseDto {
     private long sold;
 
     private double revenue;
+
+    private long toReceive;
+
+    private long completed;
+
+    private long canceled;
 }

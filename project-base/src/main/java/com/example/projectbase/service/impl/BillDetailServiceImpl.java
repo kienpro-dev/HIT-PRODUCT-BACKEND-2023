@@ -142,4 +142,9 @@ public class BillDetailServiceImpl implements BillDetailService {
     public List<StatisticResponseDto> statisticShops() {
         return billDetailRepository.statisticShops();
     }
+
+    @Override
+    public StatisticResponseDto statisticShop(int shopId) {
+        return billDetailRepository.statisticShop(shopId);
+    }
 }
