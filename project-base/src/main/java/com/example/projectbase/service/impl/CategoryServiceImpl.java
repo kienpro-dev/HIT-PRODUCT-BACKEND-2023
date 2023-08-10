@@ -104,4 +104,9 @@ public class CategoryServiceImpl implements CategoryService {
         responseDto.setMeta(pagingMeta);
         return responseDto;
     }
+
+    @Override
+    public List<CategoryResponseDto> getCategories() {
+        return categoryRepository.findAllCategory();
+    }
 }

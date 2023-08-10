@@ -33,8 +33,8 @@ public class CategoryController {
 
     @Operation(summary = "API get all category")
     @GetMapping(UrlConstant.Category.GET_CATEGORIES)
-    public ResponseEntity<?> getCategorys(@Valid @ParameterObject PaginationFullRequestDto requestDTO) {
-        return VsResponseUtil.success(categoryService.getCategories(requestDTO));
+    public ResponseEntity<?> getCategorys() {
+        return VsResponseUtil.success(categoryService.getCategories());
     }
 
     @Operation(summary = "API update category")

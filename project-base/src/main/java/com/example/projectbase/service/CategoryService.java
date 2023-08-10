@@ -7,6 +7,8 @@ import com.example.projectbase.domain.dto.response.CommonResponseDto;
 import com.example.projectbase.domain.dto.response.CategoryResponseDto;
 import com.example.projectbase.domain.entity.Category;
 
+import java.util.List;
+
 public interface CategoryService {
     Category createCategory(int shopId, CategoryDto categoryDto);
 
@@ -19,5 +21,7 @@ public interface CategoryService {
     PaginationResponseDto<Category> getCategories(PaginationFullRequestDto request);
 
     PaginationResponseDto<CategoryResponseDto> getCategoriesByShop(int shopId, PaginationFullRequestDto request);
+
+    List<CategoryResponseDto>getCategories();
 
 }
