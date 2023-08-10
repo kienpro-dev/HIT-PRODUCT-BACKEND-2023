@@ -18,7 +18,7 @@ public interface BillDetailRepository extends JpaRepository<BillDetail,Integer> 
     List<BillResponseDto> findBillDetail(int billId);
 
     @Query("SELECT new com.example.projectbase.domain.dto.response.StatisticResponseDto(s.id, s.name, SUM(bd.quantity), SUM(b.payment)) " +
-            "FROM BillDetail bd INNER JOIN bd.bill b INNER JOIN b.customer c INNER JOIN c.cart ct INNER JOIN ct.cartDetails cd INNER JOIN " +
-            "cd.shopProductDetail spd INNER JOIN spd.shop s GROUP BY s.id, s.name")
+            "FROM BillDetail bd INNER JOIN bd.bill b INNER JOIN b.customer c INNER JOIN c.cart ct INNER JOIN ct.cartDetails cd ON cd.cart.id = ct.id AND " +
+            "cd.product.id = bd.product.id INNER JOIN cd.shopProductDetail spd INNER JOIN spd.shop s GROUP BY s.id, s.name")
     List<StatisticResponseDto> statisticShops();
 }
