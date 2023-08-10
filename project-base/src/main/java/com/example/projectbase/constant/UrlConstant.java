@@ -110,6 +110,7 @@ public class UrlConstant {
         public static final String GET_BILL_INFO = PRE_FIX + "/{customerId}";
         public static final String CANCEL_ORDER=PRE_FIX+"/cancel-order"+"/{billId}";
         public static final String STATISTIC_SHOPS=PRE_FIX+"/statistic"+"/shop";
+        public static final String STATISTIC_SHOP=PRE_FIX+"/statistic"+"/shop"+"/{shopId}";
         private Bill() {
         }
     }

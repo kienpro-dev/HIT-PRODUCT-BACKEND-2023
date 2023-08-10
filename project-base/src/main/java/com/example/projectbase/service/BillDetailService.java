@@ -19,4 +19,6 @@ public interface BillDetailService {
     PaginationResponseDto<BillDetail> getAllBill(PaginationFullRequestDto requestDto);
 
     List<StatisticResponseDto> statisticShops();
+
+    StatisticResponseDto statisticShop(int shopId);
 }
