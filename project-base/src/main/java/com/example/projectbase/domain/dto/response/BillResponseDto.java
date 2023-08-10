@@ -29,7 +29,9 @@ public class BillResponseDto extends ProductCartDto {
 
     private double feeShip;
 
-    public BillResponseDto(int billId, String nameCustomer, String address, String phoneNumber, Date timeShip, double distance, double feeShip, int productId, int shopId, String shopName, String shopAddress,String productName, String productImageUrl, int quantity, int price,String status) {
+    private double payment;
+
+    public BillResponseDto(int billId, String nameCustomer, String address, String phoneNumber, Date timeShip, double distance, double feeShip, double payment, int productId, int shopId, String shopName, String shopAddress,String productName, String productImageUrl, int quantity, int price,String status) {
         super(productId, shopId, shopName, shopAddress, productName, productImageUrl, quantity, price);
         this.billId = billId;
         this.nameCustomer = nameCustomer;
@@ -39,5 +41,6 @@ public class BillResponseDto extends ProductCartDto {
         this.distance = distance;
         this.feeShip = feeShip;
         this.status=status;
+        this.payment = payment;
     }
 }
