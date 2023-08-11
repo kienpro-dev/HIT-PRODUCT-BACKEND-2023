@@ -3,6 +3,7 @@ package com.example.projectbase.service.impl;
 import com.example.projectbase.constant.ErrorMessage;
 import com.example.projectbase.constant.RoleConstant;
 import com.example.projectbase.constant.SuccessMessage;
+import com.example.projectbase.domain.dto.AddressDto;
 import com.example.projectbase.domain.dto.CartDto;
 import com.example.projectbase.domain.dto.CustomerDto;
 import com.example.projectbase.domain.dto.common.DataMailDto;
@@ -21,6 +22,7 @@ import com.example.projectbase.repository.RoleRepository;
 import com.example.projectbase.repository.UserRepository;
 import com.example.projectbase.security.UserPrincipal;
 import com.example.projectbase.security.jwt.JwtTokenProvider;
+import com.example.projectbase.service.AddressService;
 import com.example.projectbase.service.AuthService;
 import com.example.projectbase.service.CartService;
 import com.example.projectbase.service.CustomerService;
@@ -54,6 +56,8 @@ public class AuthServiceImpl implements AuthService {
   private final RoleRepository roleRepository;
 
   private final CartService cartService;
+
+  private final AddressService addressService;
 
   private final UserMapper userMapper;
 
@@ -93,7 +97,7 @@ public class AuthServiceImpl implements AuthService {
   }
 
   @Override
-  public User register(RegisterRequestDto requestDto) {
+  public User register(RegisterRequestDto requestDto, AddressDto addressDto) {
     boolean isUsernameExists = userRepository.existsByUsername(requestDto.getUsername());
     boolean isEmailExists = userRepository.existsByEmail(requestDto.getEmail());
 
@@ -112,6 +116,7 @@ public class AuthServiceImpl implements AuthService {
         user.setRole(roleRepository.findByRoleName(RoleConstant.USER));
         user.setCustomer(customerService.createCustomer(new CustomerDto(user.getUsername(), null, null)));
         cartService.createCartForCustomer(new CartDto(user.getCustomer().getId()));
+        addressService.saveLocationCustomer(user.getCustomer().getId(), addressDto);
         return userRepository.save(user);
       }
     }

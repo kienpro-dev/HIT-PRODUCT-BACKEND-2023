@@ -3,6 +3,7 @@ package com.example.projectbase.controller;
 import com.example.projectbase.base.RestApiV1;
 import com.example.projectbase.base.VsResponseUtil;
 import com.example.projectbase.constant.UrlConstant;
+import com.example.projectbase.domain.dto.AddressDto;
 import com.example.projectbase.domain.dto.request.ForgetPasswordRequestDto;
 import com.example.projectbase.domain.dto.request.LoginRequestDto;
 import com.example.projectbase.domain.dto.request.RegisterRequestDto;
@@ -18,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,8 +41,8 @@ public class AuthController {
 
   @Operation(summary = "API Register")
   @PostMapping(UrlConstant.Auth.REGISTER)
-  public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDto requestDto) {
-    return VsResponseUtil.success(authService.register(requestDto));
+  public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDto requestDto, @RequestParam float latitude, @RequestParam float longitude) {
+    return VsResponseUtil.success(authService.register(requestDto, new AddressDto(latitude, longitude, "")));
   }
 
   @Operation(summary = "API Logout")
