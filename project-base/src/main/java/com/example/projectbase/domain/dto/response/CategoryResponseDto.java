@@ -19,7 +19,26 @@ public class CategoryResponseDto {
 
     private String name;
 
+    private String image;
+
     private int shopId;
+
+    private int quantity;
+
+    public CategoryResponseDto(int categoryId, String name,String image, int shopId) {
+        this.categoryId = categoryId;
+        this.name = name;
+        this.image=image;
+        this.shopId = shopId;
+    }
+
+    public CategoryResponseDto(int categoryId, String name,int quantity,String image) {
+        this.categoryId = categoryId;
+        this.name = name;
+        this.quantity=quantity;
+        this.image=image;
+    }
+
 
 
 }
