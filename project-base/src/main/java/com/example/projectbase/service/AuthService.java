@@ -1,5 +1,6 @@
 package com.example.projectbase.service;
 
+import com.example.projectbase.domain.dto.AddressDto;
 import com.example.projectbase.domain.dto.request.*;
 import com.example.projectbase.domain.dto.response.CommonResponseDto;
 import com.example.projectbase.domain.dto.response.LoginResponseDto;
@@ -19,7 +20,7 @@ public interface AuthService {
 
   CommonResponseDto logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication);
 
-  User register(RegisterRequestDto requestDto);
+  User register(RegisterRequestDto requestDto, AddressDto addressDto);
 
   CommonResponseDto forgetPassword(ForgetPasswordRequestDto request);
 
