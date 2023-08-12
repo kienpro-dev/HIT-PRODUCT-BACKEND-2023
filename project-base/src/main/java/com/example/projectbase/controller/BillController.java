@@ -29,6 +29,18 @@ public class BillController {
         return VsResponseUtil.success(billDetailService.getAllBill(requestDTO));
     }
 
+    @Operation(summary = "API get customer bills")
+    @GetMapping(UrlConstant.Bill.GET_CUSTOMER_BILLS)
+    public ResponseEntity<?> getCustomerBills(@PathVariable int customerId) {
+        return VsResponseUtil.success(billDetailService.getCustomerBills(customerId));
+    }
+
+    @Operation(summary = "API get history buy")
+    @GetMapping(UrlConstant.Bill.GET_HISTORY_BUY)
+    public ResponseEntity<?> getHistoryBuy(@PathVariable int customerId) {
+        return VsResponseUtil.success(billDetailService.getHistoryBuy(customerId));
+    }
+
     @Operation(summary = "API cancel order")
     @PutMapping(UrlConstant.Bill.CANCEL_ORDER)
     public ResponseEntity<?> cancelOrder(@PathVariable int billId){

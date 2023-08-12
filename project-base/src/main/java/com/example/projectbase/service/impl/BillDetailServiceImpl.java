@@ -114,6 +114,8 @@ public class BillDetailServiceImpl implements BillDetailService {
             productRepository.updateStock(product.get().getId(), product.get().getStock() - c.getQuantity());
         }
 
+        cartDetailRepository.deleteAllByCartId(cart.getId());
+
         return new CommonResponseDto(true, SuccessMessage.BUY_PRODUCT);
     }
 
@@ -136,6 +138,18 @@ public class BillDetailServiceImpl implements BillDetailService {
         PagingMeta pagingMeta = new PagingMeta(bills.getTotalElements(), bills.getTotalPages(), bills.getNumber(), bills.getSize(), requestDto.getSortBy(), requestDto.getIsAscending().toString());
         responseDto.setMeta(pagingMeta);
         return responseDto;
+    }
+
+    @Override
+    public List<BillDetail> getCustomerBills(int customerId) {
+        Optional<Customer> customer = Optional.ofNullable(customerRepository.findById(customerId).orElseThrow(() -> new NotFoundException(ErrorMessage.Customer.ERR_NOT_FOUND_ID, new String[]{String.valueOf(customerId)})));
+        return billDetailRepository.getCustomerBills(customerId);
+    }
+
+    @Override
+    public List<BillDetail> getHistoryBuy(int customerId) {
+        Optional<Customer> customer = Optional.ofNullable(customerRepository.findById(customerId).orElseThrow(() -> new NotFoundException(ErrorMessage.Customer.ERR_NOT_FOUND_ID, new String[]{String.valueOf(customerId)})));
+        return billDetailRepository.getHistoryBuy(customerId);
     }
 
     @Override
