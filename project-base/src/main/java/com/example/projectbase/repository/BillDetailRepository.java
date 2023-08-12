@@ -30,4 +30,10 @@ public interface BillDetailRepository extends JpaRepository<BillDetail,Integer> 
             "c INNER JOIN c.cart ct INNER JOIN ct.cartDetails cd ON cd.cart.id = ct.id AND cd.product.id = bd.product.id " +
             "INNER JOIN cd.shopProductDetail spd INNER JOIN spd.shop s WHERE s.id = ?1 GROUP BY s.id, s.name")
     StatisticResponseDto statisticShop(int shopId);
+
+    @Query("SELECT bd FROM BillDetail bd WHERE bd.bill.timeShip > CURRENT_TIMESTAMP AND bd.bill.customer.id = ?1")
+    List<BillDetail> getCustomerBills(int customerId);
+
+    @Query("SELECT bd FROM BillDetail bd WHERE bd.bill.timeShip <= CURRENT_TIMESTAMP AND bd.bill.customer.id = ?1")
+    List<BillDetail> getHistoryBuy(int customerId);
 }

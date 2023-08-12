@@ -18,6 +18,10 @@ public interface BillDetailService {
 
     PaginationResponseDto<BillDetail> getAllBill(PaginationFullRequestDto requestDto);
 
+    List<BillDetail> getCustomerBills(int customerId);
+
+    List<BillDetail> getHistoryBuy(int customerId);
+
     List<StatisticResponseDto> statisticShops();
 
     StatisticResponseDto statisticShop(int shopId);
