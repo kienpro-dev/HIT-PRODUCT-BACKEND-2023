@@ -46,7 +46,7 @@ public class Customer extends DateAuditing {
     @JsonIgnore
     private List<VoucherDetail> voucherDetails = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "address_id", foreignKey = @ForeignKey(name="FK_CUSTOMER_ADDRESS"))
     private Address address;
 

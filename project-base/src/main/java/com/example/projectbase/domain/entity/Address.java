@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,6 +33,6 @@ public class Address extends DateAuditing {
     private Shop shop;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "address",cascade = CascadeType.MERGE)
-    private Customer customer;
+    @OneToMany(mappedBy = "address",cascade = CascadeType.MERGE)
+    private List<Customer> customers = new ArrayList<>();
 }
