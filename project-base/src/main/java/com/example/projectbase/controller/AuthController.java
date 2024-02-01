@@ -4,14 +4,18 @@ import com.example.projectbase.base.RestApiV1;
 import com.example.projectbase.base.VsResponseUtil;
 import com.example.projectbase.constant.UrlConstant;
 import com.example.projectbase.domain.dto.AddressDto;
+import com.example.projectbase.domain.dto.request.ChangePasswordRequestDto;
 import com.example.projectbase.domain.dto.request.ForgetPasswordRequestDto;
 import com.example.projectbase.domain.dto.request.LoginRequestDto;
 import com.example.projectbase.domain.dto.request.RegisterRequestDto;
 import com.example.projectbase.domain.entity.User;
+import com.example.projectbase.security.CurrentUser;
+import com.example.projectbase.security.UserPrincipal;
 import com.example.projectbase.service.AuthService;
 import com.example.projectbase.service.UserService;
 import com.example.projectbase.validator.annotation.ValidFileImage;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -55,5 +59,13 @@ public class AuthController {
   @PostMapping(UrlConstant.Auth.FORGET_PASSWORD)
   public ResponseEntity<?> forgetPassword(@Valid @RequestBody ForgetPasswordRequestDto requestDto) {
     return VsResponseUtil.success(authService.forgetPassword(requestDto));
+  }
+
+  @Operation(summary = "API Change Password")
+  @PostMapping(UrlConstant.Auth.CHANGE_PASSWORD)
+  public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordRequestDto requestDto,
+                                          @Parameter(name = "principal", hidden = true)
+                                          @CurrentUser UserPrincipal principal) {
+    return VsResponseUtil.success(authService.changePassword(requestDto, principal.getUsername()));
   }
 }
